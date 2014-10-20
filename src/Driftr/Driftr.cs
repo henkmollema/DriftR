@@ -27,6 +27,8 @@ namespace Driftr
         private float _brakes;
         // 0 is no breaks, 1 is full breaks.
 
+        private RigidBody _body = new RigidBody();
+
         public Driftr()
         {
             InitializeComponent();
@@ -39,11 +41,6 @@ namespace Driftr
             Init(screen.Size);
         }
 
-        private void Driftr_Paint(object sender, PaintEventArgs e)
-        {
-            // todo: remove.
-        }
-
         private void Init(Size size)
         {
             _bufferSize = size;
@@ -51,6 +48,9 @@ namespace Driftr
             _graphics = Graphics.FromImage(_backbuffer);
 
             _timer.GetETime();
+
+            _body.Setup(new Vector(3, 8), 5, Color.Red);
+            _body.SetLocation(new Vector(0, 0), 0);
         }
 
         private void Render(Graphics g)
@@ -61,7 +61,7 @@ namespace Driftr
             _graphics.TranslateTransform(_bufferSize.Width / 2.0f /
                 screenScale, -_bufferSize.Height / 2.0f / screenScale);
 
-            _graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);
+            DrawScreen();
 
             g.DrawImage(
                 _backbuffer, 
@@ -73,11 +73,24 @@ namespace Driftr
                 GraphicsUnit.Pixel);
         }
 
+        private void DrawScreen()
+        {
+            _body.Draw(_graphics, _bufferSize);
+        }
+
         private void DoFrame()
         {
             float etime = _timer.GetETime();
 
             ProcessInput();
+
+            //_body.SetSteering(_steering);
+            //_body.SetThrottle(_throttle, true);
+            //_body.SetBrakes(_brakes);
+
+            _body.Update(etime);
+
+            //ConstrainVehicle
 
             screen.Invalidate();
         }

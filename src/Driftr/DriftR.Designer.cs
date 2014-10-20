@@ -49,7 +49,6 @@
             this.Controls.Add(this.screen);
             this.Name = "Driftr";
             this.Text = "Driftr";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Driftr_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.screen)).EndInit();
             this.ResumeLayout(false);
 
