@@ -32,15 +32,17 @@ namespace Driftr
 
         public virtual void Setup(Vector halfsize, float mass, Color color)
         {
+            // Store the physical parameters.
             _halfsize = halfsize;
             _mass = mass;
             _color = color;
 
-            _inertia = (1.0F / 12.0F)
-                       * (halfsize.X * halfsize.X)
-                       * (halfsize.Y * halfsize.Y)
-                       * mass;
+            _inertia = (1.0F / 12.0F) *
+                       (halfsize.X * halfsize.X) *
+                       (halfsize.Y * halfsize.Y) *
+                       mass;
 
+            // Generate the viewable rectangle.
             _rect.X = (int)-_halfsize.X;
             _rect.Y = (int)-_halfsize.Y;
             _rect.Width = (int)(_halfsize.X * 2.0F);
@@ -66,7 +68,7 @@ namespace Driftr
             // Add the linear force.
             _forces += worldForce;
 
-            // todo: Add its associated torque.
+            // Add its associated torque.
             _torque += worldOffset % worldForce;
         }
 
@@ -82,14 +84,14 @@ namespace Driftr
 
             // Angular physics.
             float angAcceleration = _torque / _inertia;
-            _angularVelocity = angAcceleration * timeStep;
-            _angle += _angularVelocity * timeStep;
+            _angularVelocity += angAcceleration * timeStep; // AngV = AngV + A * T
+            _angle += _angularVelocity * timeStep; // Angle = AngV * T
 
-            // Clear the torque.
+            // Clear torque.
             _torque = 0;
         }
 
-        public void Draw(Graphics graphics, Size bufferSize)
+        public virtual void Draw(Graphics graphics, Size bufferSize)
         {
             Matrix matrix = graphics.Transform;
 
@@ -101,10 +103,11 @@ namespace Driftr
                 graphics.DrawRectangle(new Pen(_color), _rect);
 
                 graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);
+                //graphics.DrawLine(new Pen(Color.Cyan), -3, -3, -2, -2);
             }
             catch (StackOverflowException)
             {
-                // ...
+                // Physics overflow..
             }
 
             graphics.Transform = matrix;

@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,18 +16,15 @@ namespace Driftr
         private Graphics _graphics;
         private Bitmap _backbuffer;
         private Size _bufferSize;
-        private GameTimer _timer = new GameTimer();
+        private readonly GameTimer _timer = new GameTimer();
 
         private bool _left = false, _right = false, _up = false, _down = false;
 
-        private float _steering = 0;
-        // -1.0 is left, 0 is center,  1.0 is right.
-        private float _throttle = 0;
-        // 0 is coasting, 1 is full throttle.
-        private float _brakes;
-        // 0 is no breaks, 1 is full breaks.
+        private float _steering = 0;    // -1.0 is left, 0 is center,  1.0 is right.
+        private float _throttle = 0;    // 0 is coasting, 1 is full throttle.
+        private float _brakes;  // 0 is no breaks, 1 is full breaks.
 
-        private RigidBody _body = new RigidBody();
+        private readonly Vehicle _vehicle = new Vehicle();
 
         public Driftr()
         {
@@ -49,8 +46,8 @@ namespace Driftr
 
             _timer.GetETime();
 
-            _body.Setup(new Vector(3, 8), 5, Color.Red);
-            _body.SetLocation(new Vector(0, 0), 0);
+            _vehicle.Setup(new Vector(3, 8) / 2.0F, 5, Color.Red);
+            _vehicle.SetLocation(new Vector(0, 0), 0);
         }
 
         private void Render(Graphics g)
@@ -58,8 +55,9 @@ namespace Driftr
             _graphics.Clear(Color.Black);
             _graphics.ResetTransform();
             _graphics.ScaleTransform(screenScale, -screenScale);
-            _graphics.TranslateTransform(_bufferSize.Width / 2.0f /
-                screenScale, -_bufferSize.Height / 2.0f / screenScale);
+            _graphics.TranslateTransform(
+                _bufferSize.Width / 2.0F / screenScale, 
+                -_bufferSize.Height / 2.0f / screenScale);
 
             DrawScreen();
 
@@ -75,7 +73,7 @@ namespace Driftr
 
         private void DrawScreen()
         {
-            _body.Draw(_graphics, _bufferSize);
+            _vehicle.Draw(_graphics, _bufferSize);
         }
 
         private void DoFrame()
@@ -84,15 +82,39 @@ namespace Driftr
 
             ProcessInput();
 
-            //_body.SetSteering(_steering);
-            //_body.SetThrottle(_throttle, true);
-            //_body.SetBrakes(_brakes);
+            // Apply vehicle controls.
+            _vehicle.SetSteering(_steering);
+            _vehicle.SetThrottle(_throttle, true);
+            _vehicle.SetBrakes(_brakes);
 
-            _body.Update(etime);
+            _vehicle.Update(etime);
 
-            //ConstrainVehicle
+            ConstrainVehicle();
 
             screen.Invalidate();
+        }
+
+        private void ConstrainVehicle()
+        {
+            Vector position = _vehicle.Position;
+            var screenSize = new Vector(screen.Width / screenScale, screen.Height / screenScale);
+
+            while (position.X > screenSize.X / 2.0f)
+            {
+                position.X -= screenSize.X;
+            }
+            while (position.Y > screenSize.Y / 2.0f)
+            {
+                position.Y -= screenSize.Y;
+            }
+            while (position.X < -screenSize.X / 2.0f)
+            {
+                position.X += screenSize.X;
+            }
+            while (position.Y < -screenSize.Y / 2.0f)
+            {
+                position.Y += screenSize.Y;
+            }
         }
 
         private void ProcessInput()
@@ -112,7 +134,7 @@ namespace Driftr
 
             if (_up)
             {
-                _throttle = 1;
+                _throttle = 5;
             }
             else
             {

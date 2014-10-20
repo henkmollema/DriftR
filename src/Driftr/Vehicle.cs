@@ -6,7 +6,7 @@ namespace Driftr
 {
     public class Vehicle : RigidBody
     {
-        private Wheel[] _wheels = new Wheel[4];
+        private readonly Wheel[] _wheels = new Wheel[4];
 
         public override void Setup(Vector halfsize, float mass, Color color)
         {
@@ -41,6 +41,30 @@ namespace Driftr
             _wheels[3].AddTransmissionTorque(throttle * torque);
         }
 
+        public void SetBrakes(float breaks)
+        {
+            foreach (var wheel in _wheels)
+            {
+                wheel.AddTransmissionTorque(-wheel.WheelSpeed * 4.0F * breaks);
+            }
+        }
+
+        public override void Update(float timeStep)
+        {
+            foreach (var wheel in _wheels)
+            {
+                Vector worldWheelOffset = RelativeToWorld(wheel.AttachPoint);
+                Vector worldGroundVelocity = PointVelocity(worldWheelOffset);
+                Vector relativeGroundSpeed = WorldToRelative(worldGroundVelocity);
+                Vector relativeResponseForce = wheel.CalculateForce(relativeGroundSpeed, timeStep);
+                Vector worldRepsonseForce = RelativeToWorld(relativeResponseForce);
+
+                AddForce(worldRepsonseForce, worldWheelOffset);
+            }
+
+            base.Update(timeStep);
+        }
+
         private class Wheel
         {
             private Vector _forwardAxis, _sideAxis;
@@ -50,6 +74,7 @@ namespace Driftr
             public Wheel(Vector position, float radius)
             {
                 _position = position;
+                SetSteeringAngle(0);
                 _wheelSpeed = 0;
                 _wheelRadius = radius;
                 _wheelInertia = radius * radius; // Fake value.
@@ -98,23 +123,31 @@ namespace Driftr
 
             public Vector CalculateForce(Vector relativeGroundSpeed, float timeStep)
             {
+                // Calculate the speed of the tire patch at ground.
                 Vector patchSpeed = -_forwardAxis * _wheelSpeed * _wheelRadius;
 
+                // Get velocity difference between ground and patch.
                 Vector velocityDifference = relativeGroundSpeed + patchSpeed;
 
+                // Calculate ground speed onto side axis.
                 float forwardMag;
                 Vector sideVelocity = velocityDifference.Project(_sideAxis);
                 Vector forwardVelocity = velocityDifference.Project(_forwardAxis, out forwardMag);
 
+                // Calculate the response force.
                 Vector responseForce = -sideVelocity * 2.0F;
                 responseForce -= forwardVelocity;
 
+                // Calculate torque on wheel.
                 _wheelTorque += forwardMag * _wheelRadius;
 
+                // Calculate total torque into wheel.
                 _wheelSpeed += _wheelTorque / _wheelInertia * timeStep;
 
+                // Clear transmission torque accumulator.
                 _wheelTorque = 0;
 
+                // Return the force acting on the body.
                 return responseForce;
             }
         }
