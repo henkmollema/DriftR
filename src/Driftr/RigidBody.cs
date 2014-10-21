@@ -25,9 +25,9 @@ namespace Driftr
 
         public RigidBody()
         {
-            // Set defaults to prevent divide by zero.
-            _mass = 1.0F;
-            _inertia = 1.0F;
+            // Set defaults to prevent dividing by zero.
+            _mass = 1.0f;
+            _inertia = 1.0f;
         }
 
         public virtual void Setup(Vector halfsize, float mass, Color color)
@@ -37,7 +37,7 @@ namespace Driftr
             _mass = mass;
             _color = color;
 
-            _inertia = (1.0F / 12.0F) *
+            _inertia = (1.0f / 12.0f) *
                        (halfsize.X * halfsize.X) *
                        (halfsize.Y * halfsize.Y) *
                        mass;
@@ -45,8 +45,8 @@ namespace Driftr
             // Generate the viewable rectangle.
             _rect.X = (int)-_halfsize.X;
             _rect.Y = (int)-_halfsize.Y;
-            _rect.Width = (int)(_halfsize.X * 2.0F);
-            _rect.Height = (int)(_halfsize.Y * 2.0F);
+            _rect.Width = (int)(_halfsize.X * 2.0f);
+            _rect.Height = (int)(_halfsize.Y * 2.0f);
         }
 
         public void SetLocation(Vector position, float angle)
@@ -96,14 +96,13 @@ namespace Driftr
             Matrix matrix = graphics.Transform;
 
             graphics.TranslateTransform(_position.X, _position.Y);
-            graphics.RotateTransform(_angle / (float)Math.PI * 180.0F);
+            graphics.RotateTransform(_angle / (float)Math.PI * 180.0f);
 
             try
             {
                 graphics.DrawRectangle(new Pen(_color), _rect);
 
                 graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);
-                //graphics.DrawLine(new Pen(Color.Cyan), -3, -3, -2, -2);
             }
             catch (StackOverflowException)
             {
@@ -121,21 +120,21 @@ namespace Driftr
             vectors[0].X = relative.X;
             vectors[0].Y = relative.Y;
 
-            matrix.Rotate(_angle / (float)Math.PI * 180.0F);
+            matrix.Rotate(_angle / (float)Math.PI * 180.0f);
             matrix.TransformVectors(vectors);
 
             return new Vector(vectors[0].X, vectors[0].Y);
         }
 
-        public Vector WorldToRelative(Vector relative)
+        public Vector WorldToRelative(Vector world)
         {
             var matrix = new Matrix();
             var vectors = new PointF[1];
 
-            vectors[0].X = relative.X;
-            vectors[0].Y = relative.Y;
+            vectors[0].X = world.X;
+            vectors[0].Y = world.Y;
 
-            matrix.Rotate(-_angle / (float)Math.PI * 180.0F);
+            matrix.Rotate(-_angle / (float)Math.PI * 180.0f);
             matrix.TransformVectors(vectors);
 
             return new Vector(vectors[0].X, vectors[0].Y);

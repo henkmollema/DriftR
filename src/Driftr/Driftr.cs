@@ -1,28 +1,22 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Driftr
 {
     public partial class Driftr : Form
     {
-        private const float screenScale = 3.0F;
+        private const float screenScale = 3.0f;
         private Graphics _graphics;
         private Bitmap _backbuffer;
         private Size _bufferSize;
         private readonly GameTimer _timer = new GameTimer();
 
-        private bool _left = false, _right = false, _up = false, _down = false;
+        private bool _left, _right, _up, _down;
 
-        private float _steering = 0;    // -1.0 is left, 0 is center,  1.0 is right.
-        private float _throttle = 0;    // 0 is coasting, 1 is full throttle.
-        private float _brakes;  // 0 is no breaks, 1 is full breaks.
+        private float _steering; // -1.0 is left, 0 is center,  1.0 is right.
+        private float _throttle; // 0 is coasting, 1 is full throttle.
+        private float _brakes; // 0 is no breaks, 1 is full breaks.
 
         private readonly Vehicle _vehicle = new Vehicle();
 
@@ -56,17 +50,17 @@ namespace Driftr
             _graphics.ResetTransform();
             _graphics.ScaleTransform(screenScale, -screenScale);
             _graphics.TranslateTransform(
-                _bufferSize.Width / 2.0F / screenScale, 
+                _bufferSize.Width / 2.0f / screenScale,
                 -_bufferSize.Height / 2.0f / screenScale);
 
             DrawScreen();
 
             g.DrawImage(
-                _backbuffer, 
-                new Rectangle(0, 0, _bufferSize.Width, _bufferSize.Height), 
+                _backbuffer,
+                new Rectangle(0, 0, _bufferSize.Width, _bufferSize.Height),
                 0,
                 0,
-                _bufferSize.Width, 
+                _bufferSize.Width,
                 _bufferSize.Height,
                 GraphicsUnit.Pixel);
         }
@@ -84,7 +78,7 @@ namespace Driftr
 
             // Apply vehicle controls.
             _vehicle.SetSteering(_steering);
-            _vehicle.SetThrottle(_throttle, true);
+            _vehicle.SetThrottle(_throttle);
             _vehicle.SetBrakes(_brakes);
 
             _vehicle.Update(etime);
@@ -132,23 +126,9 @@ namespace Driftr
                 _steering = 0;
             }
 
-            if (_up)
-            {
-                _throttle = 5;
-            }
-            else
-            {
-                _throttle = 0;
-            }
+            _throttle = _up ? 3 : 0;
 
-            if (_down)
-            {
-                _brakes = 1;
-            }
-            else
-            {
-                _brakes = 0;
-            }
+            _brakes = _down ? 1 : 0;
         }
 
         private void screen_Paint(object sender, PaintEventArgs e)
@@ -206,6 +186,5 @@ namespace Driftr
         {
             DoFrame();
         }
-
     }
 }

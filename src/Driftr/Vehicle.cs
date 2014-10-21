@@ -11,41 +11,42 @@ namespace Driftr
         public override void Setup(Vector halfsize, float mass, Color color)
         {
             // Front wheels.
-            _wheels[0] = new Wheel(new Vector(halfsize.X, halfsize.Y), 0.5F);
-            _wheels[1] = new Wheel(new Vector(-halfsize.X, halfsize.Y), 0.5F);
+            _wheels[0] = new Wheel(new Vector(halfsize.X, halfsize.Y), 0.5f);
+            _wheels[1] = new Wheel(new Vector(-halfsize.X, halfsize.Y), 0.5f);
 
             // Rear wheels.
-            _wheels[2] = new Wheel(new Vector(halfsize.X, -halfsize.Y), 0.5F);
-            _wheels[3] = new Wheel(new Vector(-halfsize.X, halfsize.Y), 0.5F);
+            _wheels[2] = new Wheel(new Vector(halfsize.X, -halfsize.Y), 0.5f);
+            _wheels[3] = new Wheel(new Vector(-halfsize.X, halfsize.Y), 0.5f);
 
             base.Setup(halfsize, mass, color);
         }
 
         public void SetSteering(float steering)
         {
-            _wheels[0].SetSteeringAngle(-steering * 0.75F);
-            _wheels[1].SetSteeringAngle(-steering * 0.75F);
+            const float steeringLock = 0.75f;
+
+            // Apply the steering angle to the front wheels.
+            _wheels[0].SetSteeringAngle(-steering * steeringLock);
+            _wheels[1].SetSteeringAngle(-steering * steeringLock);
         }
 
-        public void SetThrottle(float throttle, bool allWheels)
+        public void SetThrottle(float throttle)
         {
-            const float torque = 20.0F;
+            const float torque = 20.0f;
 
-            if (allWheels)
-            {
-                _wheels[0].AddTransmissionTorque(throttle * torque);
-                _wheels[1].AddTransmissionTorque(throttle * torque);
-            }
-
+            // Apply transmission torque on rear wheels.
             _wheels[2].AddTransmissionTorque(throttle * torque);
             _wheels[3].AddTransmissionTorque(throttle * torque);
         }
 
-        public void SetBrakes(float breaks)
+        public void SetBrakes(float brakes)
         {
+            const float brakeTorque = 4.0f;
+
+            // Apply the brake torque on the wheel velocity.
             foreach (var wheel in _wheels)
             {
-                wheel.AddTransmissionTorque(-wheel.WheelSpeed * 4.0F * breaks);
+                wheel.AddTransmissionTorque(-wheel.WheelSpeed * brakeTorque * brakes);
             }
         }
 
@@ -57,9 +58,9 @@ namespace Driftr
                 Vector worldGroundVelocity = PointVelocity(worldWheelOffset);
                 Vector relativeGroundSpeed = WorldToRelative(worldGroundVelocity);
                 Vector relativeResponseForce = wheel.CalculateForce(relativeGroundSpeed, timeStep);
-                Vector worldRepsonseForce = RelativeToWorld(relativeResponseForce);
+                Vector worldResponseForce = RelativeToWorld(relativeResponseForce);
 
-                AddForce(worldRepsonseForce, worldWheelOffset);
+                AddForce(worldResponseForce, worldWheelOffset);
             }
 
             base.Update(timeStep);
@@ -69,7 +70,7 @@ namespace Driftr
         {
             private Vector _forwardAxis, _sideAxis;
             private float _wheelTorque, _wheelSpeed, _wheelInertia, _wheelRadius;
-            private Vector _position = new Vector();
+            private readonly Vector _position = new Vector();
 
             public Wheel(Vector position, float radius)
             {
@@ -85,18 +86,18 @@ namespace Driftr
                 var matrix = new Matrix();
                 var vectors = new PointF[2];
 
-                // Forward vectors.
+                // Forward vector.
                 vectors[0].X = 0;
                 vectors[0].Y = 1;
 
-                // Side vectors.
+                // Side vector.
                 vectors[1].X = -1;
                 vectors[1].Y = 0;
 
-                matrix.Rotate(angle / (float)Math.PI * 180.0F);
+                matrix.Rotate(angle / (float)Math.PI * 180.0f);
                 matrix.TransformVectors(vectors);
 
-                _forwardAxis = new Vector(vectors[0].X, vectors[1].Y);
+                _forwardAxis = new Vector(vectors[0].X, vectors[0].Y);
                 _sideAxis = new Vector(vectors[1].X, vectors[1].Y);
             }
 
@@ -135,7 +136,7 @@ namespace Driftr
                 Vector forwardVelocity = velocityDifference.Project(_forwardAxis, out forwardMag);
 
                 // Calculate the response force.
-                Vector responseForce = -sideVelocity * 2.0F;
+                Vector responseForce = -sideVelocity * 2.0f;
                 responseForce -= forwardVelocity;
 
                 // Calculate torque on wheel.
