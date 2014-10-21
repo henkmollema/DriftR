@@ -8,6 +8,14 @@ namespace Driftr
     {
         private readonly Wheel[] _wheels = new Wheel[4];
 
+        public Wheel[] Wheels
+        {
+            get
+            {
+                return _wheels;
+            }
+        }
+
         public override void Setup(Vector halfsize, float mass, Color color)
         {
             // Front wheels.
@@ -59,14 +67,14 @@ namespace Driftr
                 Vector relativeGroundSpeed = WorldToRelative(worldGroundVelocity);
                 Vector relativeResponseForce = wheel.CalculateForce(relativeGroundSpeed, timeStep);
                 Vector worldResponseForce = RelativeToWorld(relativeResponseForce);
-
+                
                 AddForce(worldResponseForce, worldWheelOffset);
             }
 
             base.Update(timeStep);
         }
 
-        private class Wheel
+        public class Wheel
         {
             private Vector _forwardAxis, _sideAxis;
             private float _wheelTorque, _wheelSpeed, _wheelInertia, _wheelRadius;
