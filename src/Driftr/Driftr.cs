@@ -23,8 +23,7 @@ namespace Driftr
         public Driftr()
         {
             InitializeComponent();
-            Application.Idle += Application_Idle;
-
+            Application.Idle += Application_Idle;           
             screen.Paint += screen_Paint;
             KeyUp += Driftr_KeyUp;
             KeyDown += Driftr_KeyDown;
@@ -46,7 +45,7 @@ namespace Driftr
 
         private void Render(Graphics g)
         {
-            _graphics.Clear(Color.Black);
+            _graphics.Clear(Color.Transparent);
             _graphics.ResetTransform();
             _graphics.ScaleTransform(screenScale, -screenScale);
             _graphics.TranslateTransform(
@@ -68,6 +67,7 @@ namespace Driftr
         private void DrawScreen()
         {
             _vehicle.Draw(_graphics, _bufferSize);
+            label1.Text = Convert.ToString(Math.Round(_vehicle.Wheels[2].WheelSpeed) + "km/h");
         }
 
         private void DoFrame()
