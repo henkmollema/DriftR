@@ -101,7 +101,7 @@ namespace Driftr
 
             try
             {
-                graphics.DrawImage(new Bitmap(Resources.car), -5, -5, 16, 16);
+                graphics.DrawImage(new Bitmap(Resources.car), -5, -5, 12, 12);
                 //graphics.DrawRectangle(new Pen(_color), _rect);
 
                 //graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);

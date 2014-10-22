@@ -16,6 +16,14 @@ namespace Driftr
             }
         }
 
+        public float Speed
+        {
+            get
+            {
+                return _wheels[2].WheelSpeed;
+            }
+        }
+
         public override void Setup(Vector halfsize, float mass, Color color)
         {
             // Front wheels.
@@ -41,6 +49,11 @@ namespace Driftr
         public void SetThrottle(float throttle)
         {
             const float torque = 20.0f;
+
+            if (Math.Abs(throttle) < 0.1f && Speed > 0.0f)
+            {
+                throttle = -0.5f;
+            }
 
             // Apply transmission torque on rear wheels.
             _wheels[2].AddTransmissionTorque(throttle * torque);
@@ -111,7 +124,10 @@ namespace Driftr
 
             public void AddTransmissionTorque(float torque)
             {
-                _wheelTorque += torque;
+                if (_wheelSpeed < GameSettings.MaxSpeed)
+                {
+                    _wheelTorque += torque;
+                }
             }
 
             public float WheelSpeed

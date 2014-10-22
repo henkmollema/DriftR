@@ -50,6 +50,7 @@
     <Compile Include="Driftr.Designer.cs">
       <DependentUpon>Driftr.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vector.cs" />

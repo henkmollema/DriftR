@@ -69,7 +69,7 @@ namespace Driftr
         private void DrawScreen()
         {
             _vehicle.Draw(_graphics, _bufferSize);
-            label1.Text = Convert.ToString(Math.Round(_vehicle.Wheels[2].WheelSpeed) + "km/h");
+            label1.Text = Math.Round(_vehicle.Wheels[2].WheelSpeed) + "km/h";
         }
 
         private void DoFrame()
@@ -128,7 +128,7 @@ namespace Driftr
                 _steering = 0;
             }
 
-            _throttle = _up ? 3 : 0;
+            _throttle = _up ? GameSettings.Throttle : 0;
 
             _brakes = _down ? 1 : 0;
         }
