@@ -34,7 +34,7 @@ namespace Driftr
         {
             const float torque = 20.0f;
 
-            if (Math.Abs(throttle) < 0.1f && Speed > 0.0f)
+            if (Math.Abs(throttle) <= 0 && WheelSpeed > 0.0f)
             {
                 throttle = -0.5f;
             }
@@ -46,7 +46,7 @@ namespace Driftr
 
         public void SetBrakes(float brakes)
         {
-            const float brakeTorque = 10.0f;
+            const float brakeTorque = 5.0f;
 
             // Apply the brake torque on the wheel velocity.
             foreach (var wheel in _wheels)
@@ -79,10 +79,15 @@ namespace Driftr
             }
         }
 
-        /// <summary>
-        /// Gets the speed of the vehicle based on the wheel speed.
-        /// </summary>
-        public float Speed
+        public float DisplaySpeed
+        {
+            get
+            {
+                return Velocity.Length * 2.0f;
+            }
+        }
+
+        public float WheelSpeed
         {
             get
             {

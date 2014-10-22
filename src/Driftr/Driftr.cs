@@ -52,7 +52,7 @@ namespace Driftr
             _vehicles[0].SetLocation(new Vector(0, 0), 0);
 
             _vehicles[1].Setup(new Vector(3, 8) / 2.0f, 5, Brushes.Yellow);
-            _vehicles[1].SetLocation(new Vector(0, 0), 3);
+            _vehicles[1].SetLocation(new Vector(10, 0), 0);
         }
 
         private void Render(Graphics g)
@@ -66,7 +66,8 @@ namespace Driftr
 
             DrawScreen();
 
-            //Color p = _backbuffer.GetPixel((int)Math.Ceiling(_vehicle.Position.X), (int)Math.Ceiling(_vehicle.Position.Y));
+            //Color p = new Bitmap(screen.Image).GetPixel((int)Math.Ceiling(_vehicles[0].Position.X), (int)Math.Ceiling(_vehicles[0].Position.Y));
+            //lblDebug.Text = "Color: " + p;
 
             g.DrawImage(
                 _backbuffer,
@@ -82,7 +83,7 @@ namespace Driftr
         {
             _vehicles[0].Draw(_graphics, _bufferSize);
             _vehicles[1].Draw(_graphics, _bufferSize);
-            label1.Text = Convert.ToString(Math.Round(_vehicles[0].Speed));
+            label1.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
         }
 
         private void DoFrame()
@@ -260,7 +261,7 @@ namespace Driftr
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            double snelheid = Math.Round(_vehicles[0].Speed);
+            double snelheid = Math.Round(_vehicles[0].DisplaySpeed);
             if (snelheid == 0)
             {
                 fuel = fuel - 1;

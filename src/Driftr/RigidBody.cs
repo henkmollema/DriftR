@@ -145,5 +145,13 @@ namespace Driftr
             var tangent = new Vector(-worldOffset.Y, worldOffset.X);
             return tangent * _angularVelocity + _velocity;
         }
+
+        public Vector Velocity
+        {
+            get
+            {
+                return _velocity;
+            }
+        }
     }
 }
