@@ -41,7 +41,7 @@
             this.screen.Location = new System.Drawing.Point(0, 0);
             this.screen.Margin = new System.Windows.Forms.Padding(2);
             this.screen.Name = "screen";
-            this.screen.Size = new System.Drawing.Size(499, 362);
+            this.screen.Size = new System.Drawing.Size(1008, 729);
             this.screen.TabIndex = 0;
             this.screen.TabStop = false;
             // 
@@ -59,7 +59,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 362);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.screen);
             this.Margin = new System.Windows.Forms.Padding(2);
