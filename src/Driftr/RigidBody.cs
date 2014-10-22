@@ -22,6 +22,7 @@ namespace Driftr
         // Graphical properties.
         private Vector _halfsize = new Vector();
         private Rectangle _rect;
+        private Brush _brush;
 
         protected RigidBody()
         {
@@ -30,11 +31,12 @@ namespace Driftr
             _inertia = 1.0f;
         }
 
-        public virtual void Setup(Vector halfsize, float mass)
+        public virtual void Setup(Vector halfsize, float mass, Brush brush)
         {
             // Store the physical parameters.
             _halfsize = halfsize;
             _mass = mass;
+            _brush = brush;
 
             _inertia = (1.0f / 12.0f) *
                        (halfsize.X * halfsize.X) *
@@ -100,7 +102,7 @@ namespace Driftr
             try
             {
                 graphics.DrawImage(new Bitmap(Resources.car), -5, -5, 12, 12);
-                graphics.FillRectangle(Brushes.Aqua, 0, 0, 1, 1);
+                graphics.FillRectangle(_brush, 0, 0, 1, 1);
             }
             catch (StackOverflowException)
             {

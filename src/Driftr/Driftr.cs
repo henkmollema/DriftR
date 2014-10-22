@@ -13,13 +13,16 @@ namespace Driftr
         private Size _bufferSize;
         private readonly GameTimer _timer = new GameTimer();
 
-        private bool _left, _right, _up, _down;
+        private readonly bool[] _left = new bool[2];
+        private readonly bool[] _right = new bool[2];
+        private readonly bool[] _up = new bool[2];
+        private readonly bool[] _down = new bool[2];
 
-        private float _steering; // -1.0 is left, 0 is center,  1.0 is right.
-        private float _throttle; // 0 is coasting, 1 is full throttle.
-        private float _brakes; // 0 is no breaks, 1 is full breaks.
+        private readonly float[] _steering1 = new float[2]; // -1.0 is left, 0 is center,  1.0 is right.
+        private readonly float[] _throttle1 = new float[2]; // 0 is coasting, 1 is full throttle.
+        private readonly float[] _brakes1 = new float[2]; // 0 is no breaks, 1 is full breaks.
 
-        private readonly Vehicle _vehicle = new Vehicle();
+        private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
 
         public Driftr()
         {
@@ -45,8 +48,11 @@ namespace Driftr
 
             _timer.GetETime();
 
-            _vehicle.Setup(new Vector(3, 8) / 2.0f, 5);
-            _vehicle.SetLocation(new Vector(0, 0), 0);
+            _vehicles[0].Setup(new Vector(3, 8) / 2.0f, 5, Brushes.Aqua);
+            _vehicles[0].SetLocation(new Vector(0, 0), 0);
+
+            _vehicles[1].Setup(new Vector(3, 8) / 2.0f, 5, Brushes.Yellow);
+            _vehicles[1].SetLocation(new Vector(0, 0), 3);
         }
 
         private void Render(Graphics g)
@@ -74,8 +80,9 @@ namespace Driftr
 
         private void DrawScreen()
         {
-            _vehicle.Draw(_graphics, _bufferSize); 
-            label1.Text = Convert.ToString(Math.Round(_vehicle.Speed));
+            _vehicles[0].Draw(_graphics, _bufferSize);
+            _vehicles[1].Draw(_graphics, _bufferSize);
+            label1.Text = Convert.ToString(Math.Round(_vehicles[1].Speed));
         }
 
         private void DoFrame()
@@ -85,11 +92,14 @@ namespace Driftr
             ProcessInput();
 
             // Apply vehicle controls.
-            _vehicle.SetSteering(_steering);
-            _vehicle.SetThrottle(_throttle);
-            _vehicle.SetBrakes(_brakes);
+            for (int i = 0; i < _vehicles.Length; i++)
+            {
+                _vehicles[i].SetSteering(_steering1[i]);
+                _vehicles[i].SetThrottle(_throttle1[i]);
+                _vehicles[i].SetBrakes(_brakes1[i]);
 
-            _vehicle.Update(etime);
+                _vehicles[i].Update(etime);
+            }
 
             ConstrainVehicle();
 
@@ -98,45 +108,51 @@ namespace Driftr
 
         private void ConstrainVehicle()
         {
-            Vector position = _vehicle.Position;
-            var screenSize = new Vector(screen.Width / screenScale, screen.Height / screenScale);
+            foreach (Vehicle v in _vehicles)
+            {
+                Vector position = v.Position;
+                var screenSize = new Vector(screen.Width / screenScale, screen.Height / screenScale);
 
-            while (position.X > screenSize.X / 2.0f)
-            {
-                position.X -= screenSize.X;
-            }
-            while (position.Y > screenSize.Y / 2.0f)
-            {
-                position.Y -= screenSize.Y;
-            }
-            while (position.X < -screenSize.X / 2.0f)
-            {
-                position.X += screenSize.X;
-            }
-            while (position.Y < -screenSize.Y / 2.0f)
-            {
-                position.Y += screenSize.Y;
+                while (position.X > screenSize.X / 2.0f)
+                {
+                    position.X -= screenSize.X;
+                }
+                while (position.Y > screenSize.Y / 2.0f)
+                {
+                    position.Y -= screenSize.Y;
+                }
+                while (position.X < -screenSize.X / 2.0f)
+                {
+                    position.X += screenSize.X;
+                }
+                while (position.Y < -screenSize.Y / 2.0f)
+                {
+                    position.Y += screenSize.Y;
+                }
             }
         }
 
         private void ProcessInput()
         {
-            if (_left)
+            for (int i = 0; i < _vehicles.Length; i++)
             {
-                _steering = -1;
-            }
-            else if (_right)
-            {
-                _steering = 1;
-            }
-            else
-            {
-                _steering = 0;
-            }
+                if (_left[i])
+                {
+                    _steering1[i] = -1;
+                }
+                else if (_right[i])
+                {
+                    _steering1[i] = 1;
+                }
+                else
+                {
+                    _steering1[i] = 0;
+                }
 
-            _throttle = _up ? GameSettings.Throttle : 0;
+                _throttle1[i] = _up[i] ? GameSettings.Throttle : 0;
 
-            _brakes = _down ? 1 : 0;
+                _brakes1[i] = _down[i] ? 1 : 0;
+            }
         }
 
         private void Driftr_KeyDown(object sender, KeyEventArgs e)
@@ -144,16 +160,28 @@ namespace Driftr
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    _left = true;
+                    _left[0] = true;
                     break;
                 case Keys.Right:
-                    _right = true;
+                    _right[0] = true;
                     break;
                 case Keys.Up:
-                    _up = true;
+                    _up[0] = true;
                     break;
                 case Keys.Down:
-                    _down = true;
+                    _down[0] = true;
+                    break;
+                case Keys.A:
+                    _left[1] = true;
+                    break;
+                case Keys.D:
+                    _right[1] = true;
+                    break;
+                case Keys.W:
+                    _up[1] = true;
+                    break;
+                case Keys.S:
+                    _down[1] = true;
                     break;
                 default:
                     return;
@@ -167,16 +195,28 @@ namespace Driftr
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    _left = false;
+                    _left[0] = false;
                     break;
                 case Keys.Right:
-                    _right = false;
+                    _right[0] = false;
                     break;
                 case Keys.Up:
-                    _up = false;
+                    _up[0] = false;
                     break;
                 case Keys.Down:
-                    _down = false;
+                    _down[0] = false;
+                    break;
+                case Keys.A:
+                    _left[1] = false;
+                    break;
+                case Keys.D:
+                    _right[1] = false;
+                    break;
+                case Keys.W:
+                    _up[1] = false;
+                    break;
+                case Keys.S:
+                    _down[1] = false;
                     break;
                 default:
                     return;
@@ -220,7 +260,7 @@ namespace Driftr
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            double snelheid = Math.Round(_vehicle.Wheels[2].WheelSpeed);
+            double snelheid = Math.Round(_vehicles[0].Speed);
             if (snelheid == 0)
             {
                 benzine = benzine - 1;

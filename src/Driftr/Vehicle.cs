@@ -8,7 +8,7 @@ namespace Driftr
     {
         private readonly Wheel[] _wheels = new Wheel[4];
 
-        public override void Setup(Vector halfsize, float mass)
+        public override void Setup(Vector halfsize, float mass, Brush brush)
         {
             // Front wheels.
             _wheels[0] = new Wheel(new Vector(halfsize.X, halfsize.Y), 0.5f);
@@ -18,7 +18,7 @@ namespace Driftr
             _wheels[2] = new Wheel(new Vector(halfsize.X, -halfsize.Y), 0.5f);
             _wheels[3] = new Wheel(new Vector(-halfsize.X, -halfsize.Y), 0.5f);
 
-            base.Setup(halfsize, mass);
+            base.Setup(halfsize, mass, brush);
         }
 
         public void SetSteering(float steering)
