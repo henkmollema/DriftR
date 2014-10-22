@@ -1,7 +1,7 @@
-﻿using Driftr.Properties;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Driftr.Properties;
 
 namespace Driftr
 {
@@ -18,9 +18,9 @@ namespace Driftr
         private readonly bool[] _up = new bool[2];
         private readonly bool[] _down = new bool[2];
 
-        private readonly float[] _steering1 = new float[2]; // -1.0 is left, 0 is center,  1.0 is right.
-        private readonly float[] _throttle1 = new float[2]; // 0 is coasting, 1 is full throttle.
-        private readonly float[] _brakes1 = new float[2]; // 0 is no breaks, 1 is full breaks.
+        private readonly float[] _steerings = new float[2]; // -1.0 is left, 0 is center,  1.0 is right.
+        private readonly float[] _throttles = new float[2]; // 0 is coasting, 1 is full throttle.
+        private readonly float[] _brakes = new float[2]; // 0 is no breaks, 1 is full breaks.
 
         private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
 
@@ -94,9 +94,9 @@ namespace Driftr
             // Apply vehicle controls.
             for (int i = 0; i < _vehicles.Length; i++)
             {
-                _vehicles[i].SetSteering(_steering1[i]);
-                _vehicles[i].SetThrottle(_throttle1[i]);
-                _vehicles[i].SetBrakes(_brakes1[i]);
+                _vehicles[i].SetSteering(_steerings[i]);
+                _vehicles[i].SetThrottle(_throttles[i]);
+                _vehicles[i].SetBrakes(_brakes[i]);
 
                 _vehicles[i].Update(etime);
             }
@@ -138,20 +138,20 @@ namespace Driftr
             {
                 if (_left[i])
                 {
-                    _steering1[i] = -1;
+                    _steerings[i] = -1;
                 }
                 else if (_right[i])
                 {
-                    _steering1[i] = 1;
+                    _steerings[i] = 1;
                 }
                 else
                 {
-                    _steering1[i] = 0;
+                    _steerings[i] = 0;
                 }
 
-                _throttle1[i] = _up[i] ? GameSettings.Throttle : 0;
+                _throttles[i] = _up[i] ? GameSettings.Throttle : 0;
 
-                _brakes1[i] = _down[i] ? 1 : 0;
+                _brakes[i] = _down[i] ? 1 : 0;
             }
         }
 
@@ -235,25 +235,25 @@ namespace Driftr
             DoFrame();
         }
 
-        double benzine = 100;
-        int pitstops = 0;
+        private double fuel = 100;
+        private int pitstops;
 
         private Timer timer1;
         private Timer timer2;
 
 
-        public void InitTimer()
+        private void InitTimer()
         {
             timer1 = new Timer();
-            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Tick += timer1_Tick;
             timer1.Interval = 1000; // in miliseconds
             timer1.Start();
         }
 
-        public void InitTimer2()
+        private void InitTimer2()
         {
             timer2 = new Timer();
-            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Tick += timer2_Tick;
             timer2.Interval = 1000; // in miliseconds
             timer2.Start();
         }
@@ -263,16 +263,16 @@ namespace Driftr
             double snelheid = Math.Round(_vehicles[0].Speed);
             if (snelheid == 0)
             {
-                benzine = benzine - 1;
+                fuel = fuel - 1;
             }
             else
             {
-                benzine = benzine - ((1 * snelheid) / 80);
+                fuel = fuel - ((1 * snelheid) / 80);
             }
 
-            label4.Text = Convert.ToString(benzine);
+            label4.Text = Convert.ToString(fuel);
 
-            if (benzine == 0)
+            if (fuel == 0)
             {
                 timer1.Stop();
                 label4.Text = "Empty";
@@ -280,23 +280,23 @@ namespace Driftr
             }
 
 
-            if (benzine <= 100 && benzine > 80)
+            if (fuel <= 100 && fuel > 80)
             {
                 pictureBox1.Image = Resources.dashboard_5;
             }
-            else if (benzine <= 80 && benzine > 60)
+            else if (fuel <= 80 && fuel > 60)
             {
                 pictureBox1.Image = Resources.dashboard_4;
             }
-            else if (benzine <= 60 && benzine > 40)
+            else if (fuel <= 60 && fuel > 40)
             {
                 pictureBox1.Image = Resources.dashboard_3;
             }
-            else if (benzine <= 40 && benzine > 20)
+            else if (fuel <= 40 && fuel > 20)
             {
                 pictureBox1.Image = Resources.dashboard_2;
             }
-            else if (benzine <= 20 && benzine > 0)
+            else if (fuel <= 20 && fuel > 0)
             {
                 pictureBox1.Image = Resources.dashboard_1;
             }
@@ -309,37 +309,37 @@ namespace Driftr
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer1.Stop();
-            benzine = benzine + 10;
+            fuel = fuel + 10;
 
-            if (benzine >= 100)
+            if (fuel >= 100)
             {
                 timer2.Stop();
 
-                if (benzine > 100)
+                if (fuel > 100)
                 {
-                    benzine = 100;
+                    fuel = 100;
                 }
             }
 
-            label4.Text = Convert.ToString(benzine);
+            label4.Text = Convert.ToString(fuel);
 
-            if (benzine == 100)
+            if (fuel == 100)
             {
                 pictureBox1.Image = Resources.dashboard_5;
             }
-            else if (benzine >= 80 && benzine < 100)
+            else if (fuel >= 80 && fuel < 100)
             {
                 pictureBox1.Image = Resources.dashboard_4;
             }
-            else if (benzine >= 60 && benzine < 80)
+            else if (fuel >= 60 && fuel < 80)
             {
                 pictureBox1.Image = Resources.dashboard_3;
             }
-            else if (benzine >= 40 && benzine < 60)
+            else if (fuel >= 40 && fuel < 60)
             {
                 pictureBox1.Image = Resources.dashboard_2;
             }
-            else if (benzine >= 20 && benzine < 40)
+            else if (fuel >= 20 && fuel < 40)
             {
                 pictureBox1.Image = Resources.dashboard_1;
             }
@@ -347,19 +347,6 @@ namespace Driftr
             {
                 pictureBox1.Image = Resources.dashboard_0;
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            InitTimer2();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            timer2.Stop();
-            timer1.Start();
-            pitstops++;
-            label3.Text = Convert.ToString(pitstops);
         }
     }
 }
