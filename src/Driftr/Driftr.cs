@@ -73,7 +73,7 @@ namespace Driftr
 
         private void DrawScreen()
         {
-            _vehicle.Draw(_graphics, _bufferSize);
+            _vehicle.Draw(_graphics, _bufferSize); 
             label1.Text = Convert.ToString(Math.Round(_vehicle.Wheels[2].WheelSpeed));
         }
 
