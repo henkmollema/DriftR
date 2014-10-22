@@ -24,7 +24,7 @@ namespace Driftr
 
             // Rear wheels.
             _wheels[2] = new Wheel(new Vector(halfsize.X, -halfsize.Y), 0.5f);
-            _wheels[3] = new Wheel(new Vector(-halfsize.X, halfsize.Y), 0.5f);
+            _wheels[3] = new Wheel(new Vector(-halfsize.X, -halfsize.Y), 0.5f);
 
             base.Setup(halfsize, mass, color);
         }
@@ -67,7 +67,7 @@ namespace Driftr
                 Vector relativeGroundSpeed = WorldToRelative(worldGroundVelocity);
                 Vector relativeResponseForce = wheel.CalculateForce(relativeGroundSpeed, timeStep);
                 Vector worldResponseForce = RelativeToWorld(relativeResponseForce);
-                
+
                 AddForce(worldResponseForce, worldWheelOffset);
             }
 

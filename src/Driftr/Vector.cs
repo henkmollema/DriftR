@@ -47,14 +47,14 @@ namespace Driftr
             return new Vector(-vector.X, -vector.Y);
         }
 
-        public static Vector operator *(Vector left, float right)
+        public static Vector operator *(Vector left, float scalar)
         {
-            return new Vector(left.X * right, left.Y * right);
+            return new Vector(left.X * scalar, left.Y * scalar);
         }
 
-        public static Vector operator /(Vector left, float right)
+        public static Vector operator /(Vector left, float scalar)
         {
-            return new Vector(left.X / right, left.Y / right);
+            return new Vector(left.X / scalar, left.Y / scalar);
         }
 
         public static float operator *(Vector left, Vector right)

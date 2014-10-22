@@ -40,13 +40,13 @@ namespace Driftr
 
             _timer.GetETime();
 
-            _vehicle.Setup(new Vector(3, 8) / 2.0F, 5, Color.Red);
+            _vehicle.Setup(new Vector(3, 8) / 2.0f, 5, Color.Red);
             _vehicle.SetLocation(new Vector(0, 0), 0);
         }
 
         private void Render(Graphics g)
         {
-            _graphics.Clear(Color.Black);
+            _graphics.Clear(Color.AliceBlue);
             _graphics.ResetTransform();
             _graphics.ScaleTransform(screenScale, -screenScale);
             _graphics.TranslateTransform(
@@ -54,6 +54,8 @@ namespace Driftr
                 -_bufferSize.Height / 2.0f / screenScale);
 
             DrawScreen();
+
+            //Color p = _backbuffer.GetPixel((int)Math.Ceiling(_vehicle.Position.X), (int)Math.Ceiling(_vehicle.Position.Y));
 
             g.DrawImage(
                 _backbuffer,
@@ -131,11 +133,6 @@ namespace Driftr
             _brakes = _down ? 1 : 0;
         }
 
-        private void screen_Paint(object sender, PaintEventArgs e)
-        {
-            Render(e.Graphics);
-        }
-
         private void Driftr_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -180,6 +177,11 @@ namespace Driftr
             }
 
             e.Handled = true;
+        }
+
+        private void screen_Paint(object sender, PaintEventArgs e)
+        {
+            Render(e.Graphics);
         }
 
         private void Application_Idle(object sender, EventArgs e)
