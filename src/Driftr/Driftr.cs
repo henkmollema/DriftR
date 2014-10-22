@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Driftr.Properties;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -29,6 +30,10 @@ namespace Driftr
             KeyDown += Driftr_KeyDown;
 
             Init(screen.Size);
+
+            // brandstof
+            InitTimer();
+            pictureBox1.Image = Resources.dashboard_5;
         }
 
         private void Init(Size size)
@@ -67,7 +72,7 @@ namespace Driftr
         private void DrawScreen()
         {
             _vehicle.Draw(_graphics, _bufferSize);
-            label1.Text = Convert.ToString(Math.Round(_vehicle.Wheels[2].WheelSpeed) + "km/h");
+            label1.Text = Convert.ToString(Math.Round(_vehicle.Wheels[2].WheelSpeed));
         }
 
         private void DoFrame()
@@ -185,6 +190,133 @@ namespace Driftr
         private void Application_Idle(object sender, EventArgs e)
         {
             DoFrame();
+        }
+
+        double benzine = 100;
+        int pitstops = 0;
+
+        private Timer timer1;
+        private Timer timer2;
+
+
+        public void InitTimer()
+        {
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // in miliseconds
+            timer1.Start();
+        }
+
+        public void InitTimer2()
+        {
+            timer2 = new Timer();
+            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Interval = 1000; // in miliseconds
+            timer2.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            double snelheid = Math.Round(_vehicle.Wheels[2].WheelSpeed);
+            if (snelheid == 0)
+            {
+                benzine = benzine - 1;
+            }
+            else
+            {
+                benzine = benzine - ((1 * snelheid) / 40);
+            }
+
+            label4.Text = Convert.ToString(benzine);
+
+            if (benzine == 0)
+            {
+                timer1.Stop();
+                label4.Text = "Empty";
+                pictureBox1.Image = Resources.dashboard_1;
+            }
+
+
+            if (benzine <= 100 && benzine > 80)
+            {
+                pictureBox1.Image = Resources.dashboard_5;
+            }
+            else if (benzine <= 80 && benzine > 60)
+            {
+                pictureBox1.Image = Resources.dashboard_4;
+            }
+            else if (benzine <= 60 && benzine > 40)
+            {
+                pictureBox1.Image = Resources.dashboard_3;
+            }
+            else if (benzine <= 40 && benzine > 20)
+            {
+                pictureBox1.Image = Resources.dashboard_2;
+            }
+            else if (benzine <= 20 && benzine > 0)
+            {
+                pictureBox1.Image = Resources.dashboard_1;
+            }
+            else
+            {
+                pictureBox1.Image = Resources.dashboard_0;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            benzine = benzine + 10;
+
+            if (benzine >= 100)
+            {
+                timer2.Stop();
+
+                if (benzine > 100)
+                {
+                    benzine = 100;
+                }
+            }
+
+            label4.Text = Convert.ToString(benzine);
+
+            if (benzine == 100)
+            {
+                pictureBox1.Image = Resources.dashboard_5;
+            }
+            else if (benzine >= 80 && benzine < 100)
+            {
+                pictureBox1.Image = Resources.dashboard_4;
+            }
+            else if (benzine >= 60 && benzine < 80)
+            {
+                pictureBox1.Image = Resources.dashboard_3;
+            }
+            else if (benzine >= 40 && benzine < 60)
+            {
+                pictureBox1.Image = Resources.dashboard_2;
+            }
+            else if (benzine >= 20 && benzine < 40)
+            {
+                pictureBox1.Image = Resources.dashboard_1;
+            }
+            else
+            {
+                pictureBox1.Image = Resources.dashboard_0;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            InitTimer2();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timer2.Stop();
+            timer1.Start();
+            pitstops++;
+            label3.Text = Convert.ToString(pitstops);
         }
     }
 }
