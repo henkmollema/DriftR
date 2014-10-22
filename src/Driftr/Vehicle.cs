@@ -83,7 +83,7 @@ namespace Driftr
         {
             get
             {
-                return Velocity.Length * 2.0f;
+                return Velocity.Length * GameSettings.DisplaySpeedModifier;
             }
         }
 
