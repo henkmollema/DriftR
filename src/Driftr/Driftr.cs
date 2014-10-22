@@ -82,7 +82,7 @@ namespace Driftr
         {
             _vehicles[0].Draw(_graphics, _bufferSize);
             _vehicles[1].Draw(_graphics, _bufferSize);
-            label1.Text = Convert.ToString(Math.Round(_vehicles[1].Speed));
+            label1.Text = Convert.ToString(Math.Round(_vehicles[0].Speed));
         }
 
         private void DoFrame()
