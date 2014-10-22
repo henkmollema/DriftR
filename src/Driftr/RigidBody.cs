@@ -5,7 +5,7 @@ using Driftr.Properties;
 
 namespace Driftr
 {
-    public class RigidBody
+    public abstract class RigidBody
     {
         // Linear properties.
         private Vector _position = new Vector(); // P
@@ -23,7 +23,7 @@ namespace Driftr
         private Vector _halfsize = new Vector();
         private Rectangle _rect;
 
-        public RigidBody()
+        protected RigidBody()
         {
             // Set defaults to prevent dividing by zero.
             _mass = 1.0f;
@@ -62,7 +62,7 @@ namespace Driftr
             }
         }
 
-        public void AddForce(Vector worldForce, Vector worldOffset)
+        protected void AddForce(Vector worldForce, Vector worldOffset)
         {
             // Add the linear force.
             _forces += worldForce;
@@ -90,7 +90,7 @@ namespace Driftr
             _torque = 0;
         }
 
-        public virtual void Draw(Graphics graphics, Size bufferSize)
+        public void Draw(Graphics graphics, Size bufferSize)
         {
             Matrix matrix = graphics.Transform;
 
@@ -100,9 +100,7 @@ namespace Driftr
             try
             {
                 graphics.DrawImage(new Bitmap(Resources.car), -5, -5, 12, 12);
-                //graphics.DrawRectangle(new Pen(_color), _rect);
-
-                //graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);
+                graphics.FillRectangle(Brushes.Aqua, 0, 0, 1, 1);
             }
             catch (StackOverflowException)
             {
@@ -112,7 +110,7 @@ namespace Driftr
             graphics.Transform = matrix;
         }
 
-        public Vector RelativeToWorld(Vector relative)
+        protected Vector RelativeToWorld(Vector relative)
         {
             var matrix = new Matrix();
             var vectors = new PointF[1];
@@ -126,7 +124,7 @@ namespace Driftr
             return new Vector(vectors[0].X, vectors[0].Y);
         }
 
-        public Vector WorldToRelative(Vector world)
+        protected Vector WorldToRelative(Vector world)
         {
             var matrix = new Matrix();
             var vectors = new PointF[1];
@@ -140,7 +138,7 @@ namespace Driftr
             return new Vector(vectors[0].X, vectors[0].Y);
         }
 
-        public Vector PointVelocity(Vector worldOffset)
+        protected Vector PointVelocity(Vector worldOffset)
         {
             var tangent = new Vector(-worldOffset.Y, worldOffset.X);
             return tangent * _angularVelocity + _velocity;
