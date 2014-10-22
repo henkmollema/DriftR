@@ -44,7 +44,7 @@ namespace Driftr
 
             _timer.GetETime();
 
-            _vehicle.Setup(new Vector(3, 8) / 2.0f, 5, Color.Red);
+            _vehicle.Setup(new Vector(3, 8) / 2.0f, 5);
             _vehicle.SetLocation(new Vector(0, 0), 0);
         }
 
@@ -74,7 +74,7 @@ namespace Driftr
         private void DrawScreen()
         {
             _vehicle.Draw(_graphics, _bufferSize); 
-            label1.Text = Convert.ToString(Math.Round(_vehicle.Wheels[2].WheelSpeed));
+            label1.Text = Convert.ToString(Math.Round(_vehicle.Speed));
         }
 
         private void DoFrame()

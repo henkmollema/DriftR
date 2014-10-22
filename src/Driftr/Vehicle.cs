@@ -6,25 +6,9 @@ namespace Driftr
 {
     public class Vehicle : RigidBody
     {
-        public Wheel[] _wheels = new Wheel[4];
+        private readonly Wheel[] _wheels = new Wheel[4];
 
-        public Wheel[] Wheels
-        {
-            get
-            {
-                return _wheels;
-            }
-        }
-
-        public float Speed
-        {
-            get
-            {
-                return _wheels[2].WheelSpeed;
-            }
-        }
-
-        public override void Setup(Vector halfsize, float mass, Color color)
+        public override void Setup(Vector halfsize, float mass)
         {
             // Front wheels.
             _wheels[0] = new Wheel(new Vector(halfsize.X, halfsize.Y), 0.5f);
@@ -34,7 +18,7 @@ namespace Driftr
             _wheels[2] = new Wheel(new Vector(halfsize.X, -halfsize.Y), 0.5f);
             _wheels[3] = new Wheel(new Vector(-halfsize.X, -halfsize.Y), 0.5f);
 
-            base.Setup(halfsize, mass, color);
+            base.Setup(halfsize, mass);
         }
 
         public void SetSteering(float steering)
@@ -87,6 +71,25 @@ namespace Driftr
             base.Update(timeStep);
         }
 
+        public Wheel[] Wheels
+        {
+            get
+            {
+                return _wheels;
+            }
+        }
+
+        /// <summary>
+        /// Gets the speed of the vehicle based on the wheel speed.
+        /// </summary>
+        public float Speed
+        {
+            get
+            {
+                return _wheels[2].WheelSpeed;
+            }
+        }
+
         public class Wheel
         {
             private Vector _forwardAxis, _sideAxis;
@@ -126,7 +129,7 @@ namespace Driftr
             {
                 if (_wheelSpeed < GameSettings.MaxSpeed)
                 {
-                    _wheelTorque += torque * 2;
+                    _wheelTorque += torque * 1.5f;
             }
             }
 
@@ -156,8 +159,8 @@ namespace Driftr
 
                 // Calculate ground speed onto side axis.
                 float forwardMag;
-                Vector sideVelocity = velocityDifference.Project(_sideAxis) * 3;
-                Vector forwardVelocity = velocityDifference.Project(_forwardAxis, out forwardMag) * 2;
+                Vector sideVelocity = velocityDifference.Project(_sideAxis) * 2;
+                Vector forwardVelocity = velocityDifference.Project(_forwardAxis, out forwardMag);
 
                 // Calculate the response force.
                 Vector responseForce = -sideVelocity * 2.0f;

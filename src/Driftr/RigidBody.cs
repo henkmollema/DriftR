@@ -22,7 +22,6 @@ namespace Driftr
         // Graphical properties.
         private Vector _halfsize = new Vector();
         private Rectangle _rect;
-        private Color _color;
 
         public RigidBody()
         {
@@ -31,12 +30,11 @@ namespace Driftr
             _inertia = 1.0f;
         }
 
-        public virtual void Setup(Vector halfsize, float mass, Color color)
+        public virtual void Setup(Vector halfsize, float mass)
         {
             // Store the physical parameters.
             _halfsize = halfsize;
             _mass = mass;
-            _color = color;
 
             _inertia = (1.0f / 12.0f) *
                        (halfsize.X * halfsize.X) *
