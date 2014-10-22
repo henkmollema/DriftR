@@ -90,11 +90,10 @@
             this.screen.Location = new System.Drawing.Point(0, 0);
             this.screen.Margin = new System.Windows.Forms.Padding(2);
             this.screen.Name = "screen";
-<<<<<<< HEAD
+
             this.screen.Size = new System.Drawing.Size(764, 455);
-=======
+
             this.screen.Size = new System.Drawing.Size(1008, 729);
->>>>>>> origin/master
             this.screen.TabIndex = 0;
             this.screen.TabStop = false;
             // 
@@ -102,11 +101,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
+
             this.ClientSize = new System.Drawing.Size(764, 455);
-=======
             this.ClientSize = new System.Drawing.Size(1008, 729);
->>>>>>> origin/master
+
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
