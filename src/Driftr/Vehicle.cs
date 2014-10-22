@@ -67,7 +67,7 @@ namespace Driftr
                 Vector relativeGroundSpeed = WorldToRelative(worldGroundVelocity);
                 Vector relativeResponseForce = wheel.CalculateForce(relativeGroundSpeed, timeStep);
                 Vector worldResponseForce = RelativeToWorld(relativeResponseForce);
-                
+
                 AddForce(worldResponseForce, worldWheelOffset);
             }
 

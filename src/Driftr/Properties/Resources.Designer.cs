@@ -63,6 +63,7 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+<<<<<<< HEAD
         internal static System.Drawing.Bitmap dashboard_0 {
             get {
                 object obj = ResourceManager.GetObject("dashboard_0", resourceCulture);
@@ -116,6 +117,11 @@ namespace Driftr.Properties {
         internal static System.Drawing.Bitmap dashboard_5 {
             get {
                 object obj = ResourceManager.GetObject("dashboard_5", resourceCulture);
+=======
+        internal static System.Drawing.Bitmap car {
+            get {
+                object obj = ResourceManager.GetObject("car", resourceCulture);
+>>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

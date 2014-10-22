@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Driftr.Properties;
 
 namespace Driftr
 {
@@ -100,9 +101,10 @@ namespace Driftr
 
             try
             {
-                graphics.DrawRectangle(new Pen(_color), _rect);
+                graphics.DrawImage(new Bitmap(Resources.car), -5, -5, 16, 16);
+                //graphics.DrawRectangle(new Pen(_color), _rect);
 
-                graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);
+                //graphics.DrawLine(new Pen(Color.Yellow), 1, 0, 1, 5);
             }
             catch (StackOverflowException)
             {
