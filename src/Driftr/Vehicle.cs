@@ -6,7 +6,7 @@ namespace Driftr
 {
     public class Vehicle : RigidBody
     {
-        private readonly Wheel[] _wheels = new Wheel[4];
+        public Wheel[] _wheels = new Wheel[4];
 
         public Wheel[] Wheels
         {
@@ -62,7 +62,7 @@ namespace Driftr
 
         public void SetBrakes(float brakes)
         {
-            const float brakeTorque = 4.0f;
+            const float brakeTorque = 10.0f;
 
             // Apply the brake torque on the wheel velocity.
             foreach (var wheel in _wheels)
@@ -126,8 +126,8 @@ namespace Driftr
             {
                 if (_wheelSpeed < GameSettings.MaxSpeed)
                 {
-                    _wheelTorque += torque;
-                }
+                    _wheelTorque += torque * 2;
+            }
             }
 
             public float WheelSpeed
@@ -156,8 +156,8 @@ namespace Driftr
 
                 // Calculate ground speed onto side axis.
                 float forwardMag;
-                Vector sideVelocity = velocityDifference.Project(_sideAxis);
-                Vector forwardVelocity = velocityDifference.Project(_forwardAxis, out forwardMag);
+                Vector sideVelocity = velocityDifference.Project(_sideAxis) * 3;
+                Vector forwardVelocity = velocityDifference.Project(_forwardAxis, out forwardMag) * 2;
 
                 // Calculate the response force.
                 Vector responseForce = -sideVelocity * 2.0f;
