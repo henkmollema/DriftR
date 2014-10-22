@@ -30,6 +30,7 @@ namespace Driftr
             KeyDown += Driftr_KeyDown;
 
             Init(screen.Size);
+            pictureBox1.Parent = screen;
 
             // brandstof
             InitTimer();
@@ -226,7 +227,7 @@ namespace Driftr
             }
             else
             {
-                benzine = benzine - ((1 * snelheid) / 40);
+                benzine = benzine - ((1 * snelheid) / 80);
             }
 
             label4.Text = Convert.ToString(benzine);
