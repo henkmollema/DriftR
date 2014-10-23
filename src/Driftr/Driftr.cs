@@ -43,6 +43,9 @@ namespace Driftr
 
         private void Init(Size size)
         {
+            screen.BackgroundImage = Resources.MapBackground;
+            //screen.Image = null;
+
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
             _graphics = Graphics.FromImage(_backbuffer);
@@ -67,9 +70,6 @@ namespace Driftr
 
             DrawScreen();
 
-            //Color p = new Bitmap(screen.Image).GetPixel((int)Math.Ceiling(_vehicles[0].Position.X), (int)Math.Ceiling(_vehicles[0].Position.Y));
-            //lblDebug.Text = "Color: " + p;
-
             g.DrawImage(
                 _backbuffer,
                 new Rectangle(0, 0, _bufferSize.Width, _bufferSize.Height),
@@ -85,6 +85,10 @@ namespace Driftr
             _vehicles[0].Draw(_graphics, _bufferSize);
             _vehicles[1].Draw(_graphics, _bufferSize);
             label1.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
+
+            //var pos = VehicleRelativePosition(0);
+            //Color p = new Bitmap(screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
+            //Debug.WriteLine(p);
 
             //Debug.WriteLine("Pos: {0}", screen.PointToClient(new Point((int)p.X, (int)p.Y)));
             //Debug.WriteLine(VehicleRelativePosition(0));
