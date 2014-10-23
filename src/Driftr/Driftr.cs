@@ -55,10 +55,10 @@ namespace Driftr
             _timer.GetETime();
 
             _vehicles[0].Setup(new Vector(3, 8) / 2.0f, 5, Resources.CarRed);
-            _vehicles[0].SetLocation(new Vector(-113.1f, -3.8f), 0);
+            _vehicles[0].SetLocation(new Vector(-117.5f, 3.5f), 0);
 
             _vehicles[1].Setup(new Vector(3, 8) / 2.0f, 5, Resources.CarYellow);
-            _vehicles[1].SetLocation(new Vector(-98.9f, -3.8f), 0);
+            _vehicles[1].SetLocation(new Vector(-103.0f, 3.5f), 0);
         }
 
         private void Render(Graphics g)

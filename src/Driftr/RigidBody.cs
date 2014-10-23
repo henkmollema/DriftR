@@ -74,6 +74,8 @@ namespace Driftr
             x += width / 2.0f / screenScale;
             y += height / 2.0f/screenScale;
 
+
+
             return new Vector(x, y);
         }
 
