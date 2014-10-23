@@ -150,9 +150,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-<<<<<<< HEAD
-    <Content Include="car-yellow.png" />
-    <Content Include="car-red.png" />
     <None Include="Resources\dashboard 3 red.png" />
     <None Include="Resources\dashboard 2 yellow.png" />
     <None Include="Resources\dashboard 2 red.png" />
@@ -165,12 +162,10 @@
     <None Include="Resources\dashboard 4 yellow.png" />
     <None Include="Resources\dashboard 4 red.png" />
     <None Include="Resources\dashboard 3 yellow.png" />
-=======
     <Content Include="Resources\car-yellow.png" />
     <Content Include="Resources\car-red.png" />
     <Content Include="Resources\map_background.png" />
     <None Include="Resources\map_foreground - GOED BITCHES.png" />
->>>>>>> origin/master
     <None Include="Resources\index.jpg" />
     <None Include="Resources\map_foreground.png" />
   </ItemGroup>

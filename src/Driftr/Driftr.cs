@@ -297,11 +297,7 @@ namespace Driftr
             }
             else
             {
-<<<<<<< HEAD
                 fuelRed = fuelRed - ((1 * snelheidRed) / 80);
-=======
-                fuel = fuel - ((1 * snelheid) / 65);
->>>>>>> origin/master
             }
 
             label4.Text = Convert.ToString(fuelRed);
