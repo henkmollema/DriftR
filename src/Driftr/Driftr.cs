@@ -35,10 +35,12 @@ namespace Driftr
 
             Init(screen.Size);
             pictureBox1.Parent = screen;
+            pictureBox2.Parent = screen;
 
             // brandstof
             InitTimer();
-            pictureBox1.Image = Resources.dashboard_5;
+            pictureBox1.Image = Resources.dashboard_5_red;
+            pictureBox2.Image = Resources.dashboard_5_yellow;
         }
 
         private void Init(Size size)
@@ -84,7 +86,8 @@ namespace Driftr
         {
             _vehicles[0].Draw(_graphics, _bufferSize);
             _vehicles[1].Draw(_graphics, _bufferSize);
-            label1.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
+            speedLabelRed.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
+            speedLabelYellow.Text = Convert.ToString(Math.Round(_vehicles[1].DisplaySpeed));
 
             //Debug.WriteLine("Pos: {0}", screen.PointToClient(new Point((int)p.X, (int)p.Y)));
             //Debug.WriteLine(VehicleRelativePosition(0));
@@ -244,119 +247,225 @@ namespace Driftr
             DoFrame();
         }
 
-        private double fuel = 100;
-        private int pitstops;
+        private double fuelRed = 100;
+        private double fuelYellow = 100;
+        private int pitstopsRed;
+        private int pitstopsYellow;
 
-        private Timer timer1;
-        private Timer timer2;
+        private Timer timerRed;
+        private Timer timerRed2;
+        private Timer timerYellow;
+        private Timer timerYellow2;
 
 
         private void InitTimer()
         {
-            timer1 = new Timer();
-            timer1.Tick += timer1_Tick;
-            timer1.Interval = 1000; // in miliseconds
-            timer1.Start();
+            timerRed = new Timer();
+            timerRed.Tick += timerRed_Tick;
+            timerRed.Interval = 1000; // in miliseconds
+            timerRed.Start();
+
+            timerYellow = new Timer();
+            timerYellow.Tick += timerYellow_Tick;
+            timerYellow.Interval = 1000; // in miliseconds
+            timerYellow.Start();
         }
 
-        private void InitTimer2()
+        private void InittimerRed2()
         {
-            timer2 = new Timer();
-            timer2.Tick += timer2_Tick;
-            timer2.Interval = 1000; // in miliseconds
-            timer2.Start();
+            timerRed2 = new Timer();
+            timerRed2.Tick += timerRed2_Tick;
+            timerRed2.Interval = 1000; // in miliseconds
+            timerRed2.Start();
+
+            timerYellow2 = new Timer();
+            timerYellow2.Tick += timerYellow2_Tick;
+            timerYellow2.Interval = 1000; // in miliseconds
+            timerYellow2.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timerRed_Tick(object sender, EventArgs e)
         {
-            double snelheid = Math.Round(_vehicles[0].DisplaySpeed);
-            if (snelheid == 0)
+            double snelheidRed = Math.Round(_vehicles[0].DisplaySpeed);
+            if (snelheidRed == 0)
             {
-                fuel = fuel - 0.5;
+                fuelRed = fuelRed - 0.5;
             }
             else
             {
-                fuel = fuel - ((1 * snelheid) / 80);
+                fuelRed = fuelRed - ((1 * snelheidRed) / 80);
             }
 
-            label4.Text = Convert.ToString(fuel);
+            label4.Text = Convert.ToString(fuelRed);
 
-            if (fuel == 0)
+            if (fuelRed == 0)
             {
-                timer1.Stop();
+                timerRed.Stop();
                 label4.Text = "Empty";
-                pictureBox1.Image = Resources.dashboard_1;
+                pictureBox1.Image = Resources.dashboard_1_red;
             }
 
 
-            if (fuel <= 100 && fuel > 80)
+            if (fuelRed <= 100 && fuelRed > 80)
             {
-                pictureBox1.Image = Resources.dashboard_5;
+                pictureBox1.Image = Resources.dashboard_5_red;
             }
-            else if (fuel <= 80 && fuel > 60)
+            else if (fuelRed <= 80 && fuelRed > 60)
             {
-                pictureBox1.Image = Resources.dashboard_4;
+                pictureBox1.Image = Resources.dashboard_4_red;
             }
-            else if (fuel <= 60 && fuel > 40)
+            else if (fuelRed <= 60 && fuelRed > 40)
             {
-                pictureBox1.Image = Resources.dashboard_3;
+                pictureBox1.Image = Resources.dashboard_3_red;
             }
-            else if (fuel <= 40 && fuel > 20)
+            else if (fuelRed <= 40 && fuelRed > 20)
             {
-                pictureBox1.Image = Resources.dashboard_2;
+                pictureBox1.Image = Resources.dashboard_2_red;
             }
-            else if (fuel <= 20 && fuel > 0)
+            else if (fuelRed <= 20 && fuelRed > 0)
             {
-                pictureBox1.Image = Resources.dashboard_1;
+                pictureBox1.Image = Resources.dashboard_1_red;
             }
             else
             {
-                pictureBox1.Image = Resources.dashboard_0;
+                pictureBox1.Image = Resources.dashboard_0_red;
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void timerRed2_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
-            fuel = fuel + 10;
+            timerRed.Stop();
+            fuelRed = fuelRed + 10;
 
-            if (fuel >= 100)
+            if (fuelRed >= 100)
             {
-                timer2.Stop();
+                timerRed2.Stop();
 
-                if (fuel > 100)
+                if (fuelRed > 100)
                 {
-                    fuel = 100;
+                    fuelRed = 100;
                 }
             }
 
-            label4.Text = Convert.ToString(fuel);
+            label4.Text = Convert.ToString(fuelRed);
 
-            if (fuel == 100)
+            if (fuelRed == 100)
             {
-                pictureBox1.Image = Resources.dashboard_5;
+                pictureBox1.Image = Resources.dashboard_5_red;
             }
-            else if (fuel >= 80 && fuel < 100)
+            else if (fuelRed >= 80 && fuelRed < 100)
             {
-                pictureBox1.Image = Resources.dashboard_4;
+                pictureBox1.Image = Resources.dashboard_4_red;
             }
-            else if (fuel >= 60 && fuel < 80)
+            else if (fuelRed >= 60 && fuelRed < 80)
             {
-                pictureBox1.Image = Resources.dashboard_3;
+                pictureBox1.Image = Resources.dashboard_3_red;
             }
-            else if (fuel >= 40 && fuel < 60)
+            else if (fuelRed >= 40 && fuelRed < 60)
             {
-                pictureBox1.Image = Resources.dashboard_2;
+                pictureBox1.Image = Resources.dashboard_2_red;
             }
-            else if (fuel >= 20 && fuel < 40)
+            else if (fuelRed >= 20 && fuelRed < 40)
             {
-                pictureBox1.Image = Resources.dashboard_1;
+                pictureBox1.Image = Resources.dashboard_1_red;
             }
             else
             {
-                pictureBox1.Image = Resources.dashboard_0;
+                pictureBox1.Image = Resources.dashboard_0_red;
             }
         }
+
+        private void timerYellow_Tick(object sender, EventArgs e)
+        {
+            double snelheidYellow = Math.Round(_vehicles[1].DisplaySpeed);
+            if (snelheidYellow == 0)
+            {
+                fuelYellow = fuelYellow - 0.5;
+            }
+            else
+            {
+                fuelYellow = fuelYellow - ((1 * snelheidYellow) / 80);
+            }
+
+            label5.Text = Convert.ToString(fuelYellow);
+
+            if (fuelYellow == 0)
+            {
+                timerRed.Stop();
+                label5.Text = "Empty";
+                pictureBox2.Image = Resources.dashboard_1_yellow;
+            }
+
+
+            if (fuelYellow <= 100 && fuelYellow > 80)
+            {
+                pictureBox2.Image = Resources.dashboard_5_yellow;
+            }
+            else if (fuelYellow <= 80 && fuelYellow > 60)
+            {
+                pictureBox2.Image = Resources.dashboard_4_yellow;
+            }
+            else if (fuelYellow <= 60 && fuelYellow > 40)
+            {
+                pictureBox2.Image = Resources.dashboard_3_yellow;
+            }
+            else if (fuelYellow <= 40 && fuelYellow > 20)
+            {
+                pictureBox2.Image = Resources.dashboard_2_yellow;
+            }
+            else if (fuelYellow <= 20 && fuelYellow > 0)
+            {
+                pictureBox2.Image = Resources.dashboard_1_yellow;
+            }
+            else
+            {
+                pictureBox2.Image = Resources.dashboard_0_yellow;
+            }
+        }
+
+        private void timerYellow2_Tick(object sender, EventArgs e)
+        {
+            timerRed.Stop();
+            fuelYellow = fuelYellow + 10;
+
+            if (fuelYellow >= 100)
+            {
+                timerYellow2.Stop();
+
+                if (fuelYellow > 100)
+                {
+                    fuelYellow = 100;
+                }
+            }
+
+            label5.Text = Convert.ToString(fuelYellow);
+
+            if (fuelYellow == 100)
+            {
+                pictureBox2.Image = Resources.dashboard_5_yellow;
+            }
+            else if (fuelYellow >= 80 && fuelYellow < 100)
+            {
+                pictureBox2.Image = Resources.dashboard_4_yellow;
+            }
+            else if (fuelYellow >= 60 && fuelYellow < 80)
+            {
+                pictureBox2.Image = Resources.dashboard_3_yellow;
+            }
+            else if (fuelYellow >= 40 && fuelYellow < 60)
+            {
+                pictureBox2.Image = Resources.dashboard_2_yellow;
+            }
+            else if (fuelYellow >= 20 && fuelYellow < 40)
+            {
+                pictureBox2.Image = Resources.dashboard_1_yellow;
+            }
+            else
+            {
+                pictureBox2.Image = Resources.dashboard_0_yellow;
+            }
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Left || keyData == Keys.Right)

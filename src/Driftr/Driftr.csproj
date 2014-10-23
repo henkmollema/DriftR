@@ -152,6 +152,18 @@
     </BootstrapperPackage>
     <Content Include="car-yellow.png" />
     <Content Include="car-red.png" />
+    <None Include="Resources\dashboard 3 red.png" />
+    <None Include="Resources\dashboard 2 yellow.png" />
+    <None Include="Resources\dashboard 2 red.png" />
+    <None Include="Resources\dashboard 1 yellow.png" />
+    <None Include="Resources\dashboard 1 red.png" />
+    <None Include="Resources\dashboard 0 yellow.png" />
+    <None Include="Resources\dashboard 0 red.png" />
+    <None Include="Resources\dashboard 5 yellow.png" />
+    <None Include="Resources\dashboard 5 red.png" />
+    <None Include="Resources\dashboard 4 yellow.png" />
+    <None Include="Resources\dashboard 4 red.png" />
+    <None Include="Resources\dashboard 3 yellow.png" />
     <None Include="Resources\index.jpg" />
     <None Include="Resources\racebaan visuele lvl 1024p.png" />
   </ItemGroup>

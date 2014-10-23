@@ -83,9 +83,9 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dashboard_0 {
+        internal static System.Drawing.Bitmap dashboard_0_red {
             get {
-                object obj = ResourceManager.GetObject("dashboard_0", resourceCulture);
+                object obj = ResourceManager.GetObject("dashboard_0_red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dashboard_1 {
+        internal static System.Drawing.Bitmap dashboard_0_yellow {
             get {
-                object obj = ResourceManager.GetObject("dashboard_1", resourceCulture);
+                object obj = ResourceManager.GetObject("dashboard_0_yellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dashboard_2 {
+        internal static System.Drawing.Bitmap dashboard_1_red {
             get {
-                object obj = ResourceManager.GetObject("dashboard_2", resourceCulture);
+                object obj = ResourceManager.GetObject("dashboard_1_red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dashboard_3 {
+        internal static System.Drawing.Bitmap dashboard_1_yellow {
             get {
-                object obj = ResourceManager.GetObject("dashboard_3", resourceCulture);
+                object obj = ResourceManager.GetObject("dashboard_1_yellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dashboard_4 {
+        internal static System.Drawing.Bitmap dashboard_2_red {
             get {
-                object obj = ResourceManager.GetObject("dashboard_4", resourceCulture);
+                object obj = ResourceManager.GetObject("dashboard_2_red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,32 +133,88 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dashboard_5 {
+        internal static System.Drawing.Bitmap dashboard_2_yellow {
             get {
-                object obj = ResourceManager.GetObject("dashboard_5", resourceCulture);
+                object obj = ResourceManager.GetObject("dashboard_2_yellow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap index
-        {
-            get
-            {
+        internal static System.Drawing.Bitmap dashboard_3_red {
+            get {
+                object obj = ResourceManager.GetObject("dashboard_3_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboard_3_yellow {
+            get {
+                object obj = ResourceManager.GetObject("dashboard_3_yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboard_4_red {
+            get {
+                object obj = ResourceManager.GetObject("dashboard_4_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboard_4_yellow {
+            get {
+                object obj = ResourceManager.GetObject("dashboard_4_yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboard_5_red {
+            get {
+                object obj = ResourceManager.GetObject("dashboard_5_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dashboard_5_yellow {
+            get {
+                object obj = ResourceManager.GetObject("dashboard_5_yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap index {
+            get {
                 object obj = ResourceManager.GetObject("index", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
-        ///     Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap racebaan_visuele_lvl_1024p
-        {
-            get
-            {
+        internal static System.Drawing.Bitmap racebaan_visuele_lvl_1024p {
+            get {
                 object obj = ResourceManager.GetObject("racebaan_visuele_lvl_1024p", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
