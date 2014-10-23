@@ -16,7 +16,7 @@ namespace Driftr
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Driftr());
+            Application.Run(new start());
         }
     }
 }

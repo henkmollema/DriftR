@@ -139,5 +139,21 @@ namespace Driftr.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+<<<<<<< HEAD
+        internal static System.Drawing.Bitmap index {
+            get {
+                object obj = ResourceManager.GetObject("index", resourceCulture);
+=======
+        internal static System.Drawing.Bitmap racebaan_visuele_lvl_1024p {
+            get {
+                object obj = ResourceManager.GetObject("racebaan_visuele_lvl_1024p", resourceCulture);
+>>>>>>> origin/master
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

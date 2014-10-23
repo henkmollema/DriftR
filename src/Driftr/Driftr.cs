@@ -196,7 +196,6 @@ namespace Driftr
                 default:
                     return;
             }
-
             e.Handled = true;
         }
 
@@ -273,7 +272,7 @@ namespace Driftr
             double snelheid = Math.Round(_vehicles[0].DisplaySpeed);
             if (snelheid == 0)
             {
-                fuel = fuel - 1;
+                fuel = fuel - 0.5;
             }
             else
             {
@@ -357,6 +356,16 @@ namespace Driftr
             {
                 pictureBox1.Image = Resources.dashboard_0;
             }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Left || keyData == Keys.Right)
+            {
+                Driftr_KeyDown(this, new KeyEventArgs(keyData));
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
