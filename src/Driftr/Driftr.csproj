@@ -134,6 +134,7 @@
     </BootstrapperPackage>
     <Content Include="car-yellow.png" />
     <Content Include="car-red.png" />
+    <None Include="Resources\racebaan visuele lvl 1024p.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

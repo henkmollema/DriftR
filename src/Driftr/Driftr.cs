@@ -264,7 +264,7 @@ namespace Driftr
             double snelheid = Math.Round(_vehicles[0].DisplaySpeed);
             if (snelheid == 0)
             {
-                fuel = fuel - 1;
+                fuel = fuel - 0.5;
             }
             else
             {
