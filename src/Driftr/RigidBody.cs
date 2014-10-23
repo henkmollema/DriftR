@@ -63,6 +63,20 @@ namespace Driftr
             }
         }
 
+        /// <summary>
+        /// Gets the relative position of the vehicle based on the specified width, height and screen scale.
+        /// </summary>
+        public Vector RelativePosition(int width, int height, float screenScale)
+        {
+            float x = _position.X;
+            float y = _position.Y;
+
+            x += width / 2.0f / screenScale;
+            y += height / 2.0f/screenScale;
+
+            return new Vector(x, y);
+        }
+
         protected void AddForce(Vector worldForce, Vector worldOffset)
         {
             // Add the linear force.

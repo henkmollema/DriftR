@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Driftr.Properties;
@@ -45,7 +46,7 @@ namespace Driftr
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
             _graphics = Graphics.FromImage(_backbuffer);
-
+            
             _timer.GetETime();
 
             _vehicles[0].Setup(new Vector(3, 8) / 2.0f, 5, Resources.CarRed);
@@ -84,6 +85,14 @@ namespace Driftr
             _vehicles[0].Draw(_graphics, _bufferSize);
             _vehicles[1].Draw(_graphics, _bufferSize);
             label1.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
+
+            //Debug.WriteLine("Pos: {0}", screen.PointToClient(new Point((int)p.X, (int)p.Y)));
+            //Debug.WriteLine(VehicleRelativePosition(0));
+        }
+
+        private Vector VehicleRelativePosition(int vehicle)
+        {
+            return _vehicles[vehicle].RelativePosition(_bufferSize.Width, _bufferSize.Height, screenScale);
         }
 
         private void DoFrame()
