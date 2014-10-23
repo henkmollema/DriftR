@@ -45,7 +45,7 @@ namespace Driftr
 
         private void Init(Size size)
         {
-            screen.BackgroundImage = Resources.MapBackground;
+            //screen.BackgroundImage = Resources.MapBackground;
             //screen.Image = null;
 
             _bufferSize = size;
