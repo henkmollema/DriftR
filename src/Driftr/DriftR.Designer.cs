@@ -94,7 +94,7 @@
             this.screen.BackColor = System.Drawing.Color.Transparent;
             this.screen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.screen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.screen.Image = global::Driftr.Properties.Resources.racebaan_visuele_lvl_1024p;
+            this.screen.Image = global::Driftr.Properties.Resources.MapForeground;
             this.screen.Location = new System.Drawing.Point(0, 0);
             this.screen.Margin = new System.Windows.Forms.Padding(2);
             this.screen.Name = "screen";

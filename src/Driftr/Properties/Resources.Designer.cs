@@ -140,6 +140,7 @@ namespace Driftr.Properties {
             }
         }
         
+<<<<<<< HEAD
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
@@ -203,6 +204,11 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+=======
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+>>>>>>> origin/master
         internal static System.Drawing.Bitmap index {
             get {
                 object obj = ResourceManager.GetObject("index", resourceCulture);
@@ -213,9 +219,25 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+<<<<<<< HEAD
         internal static System.Drawing.Bitmap racebaan_visuele_lvl_1024p {
             get {
                 object obj = ResourceManager.GetObject("racebaan_visuele_lvl_1024p", resourceCulture);
+=======
+        internal static System.Drawing.Bitmap MapBackground {
+            get {
+                object obj = ResourceManager.GetObject("MapBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MapForeground {
+            get {
+                object obj = ResourceManager.GetObject("MapForeground", resourceCulture);
+>>>>>>> origin/master
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

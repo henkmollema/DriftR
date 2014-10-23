@@ -45,6 +45,9 @@ namespace Driftr
 
         private void Init(Size size)
         {
+            screen.BackgroundImage = Resources.MapBackground;
+            //screen.Image = null;
+
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
             _graphics = Graphics.FromImage(_backbuffer);
@@ -52,10 +55,10 @@ namespace Driftr
             _timer.GetETime();
 
             _vehicles[0].Setup(new Vector(3, 8) / 2.0f, 5, Resources.CarRed);
-            _vehicles[0].SetLocation(new Vector(0, 0), 0);
+            _vehicles[0].SetLocation(new Vector(-113.1f, -3.8f), 0);
 
             _vehicles[1].Setup(new Vector(3, 8) / 2.0f, 5, Resources.CarYellow);
-            _vehicles[1].SetLocation(new Vector(10, 0), 0);
+            _vehicles[1].SetLocation(new Vector(-98.9f, -3.8f), 0);
         }
 
         private void Render(Graphics g)
@@ -68,9 +71,6 @@ namespace Driftr
                 -_bufferSize.Height / 2.0f / screenScale);
 
             DrawScreen();
-
-            //Color p = new Bitmap(screen.Image).GetPixel((int)Math.Ceiling(_vehicles[0].Position.X), (int)Math.Ceiling(_vehicles[0].Position.Y));
-            //lblDebug.Text = "Color: " + p;
 
             g.DrawImage(
                 _backbuffer,
@@ -88,6 +88,10 @@ namespace Driftr
             _vehicles[1].Draw(_graphics, _bufferSize);
             speedLabelRed.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
             speedLabelYellow.Text = Convert.ToString(Math.Round(_vehicles[1].DisplaySpeed));
+
+            //var pos = VehicleRelativePosition(0);
+            //Color p = new Bitmap(screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
+            //Debug.WriteLine(p);
 
             //Debug.WriteLine("Pos: {0}", screen.PointToClient(new Point((int)p.X, (int)p.Y)));
             //Debug.WriteLine(VehicleRelativePosition(0));
@@ -293,7 +297,11 @@ namespace Driftr
             }
             else
             {
+<<<<<<< HEAD
                 fuelRed = fuelRed - ((1 * snelheidRed) / 80);
+=======
+                fuel = fuel - ((1 * snelheid) / 65);
+>>>>>>> origin/master
             }
 
             label4.Text = Convert.ToString(fuelRed);
