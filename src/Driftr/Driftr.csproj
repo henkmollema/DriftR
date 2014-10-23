@@ -154,7 +154,7 @@
     <Content Include="car-red.png" />
     <Content Include="Resources\map_background.png" />
     <None Include="Resources\index.jpg" />
-    <None Include="Resources\racebaan visuele lvl 1024p.png" />
+    <None Include="Resources\map_foreground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

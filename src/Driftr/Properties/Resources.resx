@@ -145,10 +145,10 @@
   <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\index.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="racebaan_visuele_lvl_1024p" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\racebaan visuele lvl 1024p.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="MapBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MapForeground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map_foreground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
