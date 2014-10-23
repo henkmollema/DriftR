@@ -150,8 +150,8 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <Content Include="car-yellow.png" />
-    <Content Include="car-red.png" />
+    <Content Include="Resources\car-yellow.png" />
+    <Content Include="Resources\car-red.png" />
     <Content Include="Resources\map_background.png" />
     <None Include="Resources\index.jpg" />
     <None Include="Resources\map_foreground.png" />
