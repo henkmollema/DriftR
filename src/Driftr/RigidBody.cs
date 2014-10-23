@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Driftr.Properties;
 
 namespace Driftr
 {
@@ -22,7 +21,7 @@ namespace Driftr
         // Graphical properties.
         private Vector _halfsize = new Vector();
         private Rectangle _rect;
-        private Brush _brush;
+        private Bitmap _vehicleBitmap;
 
         protected RigidBody()
         {
@@ -31,12 +30,12 @@ namespace Driftr
             _inertia = 1.0f;
         }
 
-        public virtual void Setup(Vector halfsize, float mass, Brush brush)
+        public virtual void Setup(Vector halfsize, float mass, Bitmap vehicleBitmap)
         {
             // Store the physical parameters.
             _halfsize = halfsize;
             _mass = mass;
-            _brush = brush;
+            _vehicleBitmap = vehicleBitmap;
 
             _inertia = (1.0f / 12.0f) *
                        (halfsize.X * halfsize.X) *
@@ -101,8 +100,8 @@ namespace Driftr
 
             try
             {
-                graphics.DrawImage(new Bitmap(Resources.car), -5, -5, 12, 12);
-                graphics.FillRectangle(_brush, 0, 0, 1, 1);
+                graphics.DrawRectangle(new Pen(Color.Transparent), _rect);
+                graphics.DrawImage(_vehicleBitmap, -5, -5, 12, 12);
             }
             catch (StackOverflowException)
             {
