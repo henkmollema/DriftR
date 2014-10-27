@@ -30,6 +30,7 @@ namespace Driftr
             InitializeComponent();
             Application.Idle += Application_Idle;
             screen.Paint += screen_Paint;
+            screen.MouseUp += screen_MouseUp;
             KeyUp += Driftr_KeyUp;
             KeyDown += Driftr_KeyDown;
 
@@ -43,9 +44,28 @@ namespace Driftr
             pictureBox2.Image = Resources.dashboard_5_yellow;
         }
 
+        void screen_MouseUp(object sender, MouseEventArgs e)
+        {
+            //Debug.WriteLine("Mouse: X={0}, Y={1}", e.X, e.Y);
+            //
+            //var p = ((Bitmap)screen.BackgroundImage).GetPixel(e.X, e.Y);
+            //Debug.WriteLine(p);
+            //
+            //var pos = VehicleRelativePosition(0);
+            //Debug.WriteLine("Vehicle: X={0}, Y={1}", (int)pos.X, (int)pos.Y);
+            //
+            //var p2 = ((Bitmap)screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
+            //Debug.WriteLine(p2);
+            //
+            //Debug.WriteLine("=======");
+        }
+
         private void Init(Size size)
         {
             //screen.BackgroundImage = Resources.MapBackground;
+            //
+            //screen.SizeMode = PictureBoxSizeMode.Normal;
+            //screen.BackgroundImageLayout = ImageLayout.None;
             //screen.Image = null;
 
             _bufferSize = size;
@@ -89,11 +109,12 @@ namespace Driftr
             speedLabelRed.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
             speedLabelYellow.Text = Convert.ToString(Math.Round(_vehicles[1].DisplaySpeed));
 
+            // todo: figure out if the position is correct.
             //var pos = VehicleRelativePosition(0);
-            //Color p = new Bitmap(screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
+            //Debug.WriteLine("X: {0}, Y: {1}", (int)pos.X, (int)pos.Y);
+            //Color p = ((Bitmap)screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
             //Debug.WriteLine(p);
 
-            //Debug.WriteLine("Pos: {0}", screen.PointToClient(new Point((int)p.X, (int)p.Y)));
             //Debug.WriteLine(VehicleRelativePosition(0));
         }
 
@@ -251,7 +272,7 @@ namespace Driftr
             DoFrame();
         }
 
-        private double fuelRed = 100;
+        //private double fuelRed = 100;
         private double fuelYellow = 100;
         private int pitstopsRed;
         private int pitstopsYellow;
@@ -290,15 +311,9 @@ namespace Driftr
 
         private void timerRed_Tick(object sender, EventArgs e)
         {
-            double snelheidRed = Math.Round(_vehicles[0].DisplaySpeed);
-            if (snelheidRed == 0)
-            {
-                fuelRed = fuelRed - 0.5;
-            }
-            else
-            {
-                fuelRed = fuelRed - ((1 * snelheidRed) / 80);
-            }
+            Vehicle red = _vehicles[0];
+            red.UpdateFuel(false);
+            double fuelRed = red.Fuel;
 
             label4.Text = Convert.ToString(fuelRed);
 
@@ -339,16 +354,14 @@ namespace Driftr
         private void timerRed2_Tick(object sender, EventArgs e)
         {
             timerRed.Stop();
-            fuelRed = fuelRed + 10;
+            Vehicle red = _vehicles[0];
+
+            red.UpdateFuel(true);
+            double fuelRed = red.Fuel;
 
             if (fuelRed >= 100)
             {
                 timerRed2.Stop();
-
-                if (fuelRed > 100)
-                {
-                    fuelRed = 100;
-                }
             }
 
             label4.Text = Convert.ToString(fuelRed);

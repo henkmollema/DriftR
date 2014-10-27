@@ -7,6 +7,7 @@ namespace Driftr
     public class Vehicle : RigidBody
     {
         private readonly Wheel[] _wheels = new Wheel[4];
+        private double _fuel = 100;
 
         public override void Setup(Vector halfsize, float mass, Bitmap vehicleBitmap)
         {
@@ -33,6 +34,12 @@ namespace Driftr
         public void SetThrottle(float throttle)
         {
             const float torque = 20.0f;
+
+            // When the fuel is empty, you can not throttle.
+            if (Fuel <= 0 && DisplaySpeed >= GameSettings.EmptyFuelSpeed)
+            {
+                throttle = 0;
+            }
 
             if (Math.Abs(throttle) <= 0 && WheelSpeed > 0.0f)
             {
@@ -71,11 +78,50 @@ namespace Driftr
             base.Update(timeStep);
         }
 
+        public void UpdateFuel(bool inPitstop)
+        {
+            if (!inPitstop)
+            {
+                if (_fuel <= 0)
+                {
+                    _fuel = 0;
+                    return;
+                }
+
+                if (DisplaySpeed == 0)
+                {
+                    _fuel -= 0.5;
+                }
+                else
+                {
+                    _fuel -= DisplaySpeed / 80;
+                }
+            }
+            else
+            {
+                _fuel += 10;
+
+                // Max fuel is 100.
+                if (_fuel > 100)
+                {
+                    _fuel = 100;
+                }
+            }
+        }
+
         public Wheel[] Wheels
         {
             get
             {
                 return _wheels;
+            }
+        }
+
+        public double Fuel
+        {
+            get
+            {
+                return _fuel;
             }
         }
 
