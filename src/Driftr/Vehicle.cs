@@ -178,7 +178,7 @@ namespace Driftr
 
             public void AddTransmissionTorque(float torque)
             {
-                if (_wheelSpeed < GameSettings.MaxSpeed)
+                if (_wheelSpeed < GameSettings.MaxSpeed || torque <= 0)
                 {
                     _wheelTorque += torque * 1.5f;
             }

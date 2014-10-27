@@ -394,21 +394,15 @@ namespace Driftr
 
         private void timerYellow_Tick(object sender, EventArgs e)
         {
-            double snelheidYellow = Math.Round(_vehicles[1].DisplaySpeed);
-            if (snelheidYellow == 0)
-            {
-                fuelYellow = fuelYellow - 0.5;
-            }
-            else
-            {
-                fuelYellow = fuelYellow - ((1 * snelheidYellow) / 80);
-            }
+            Vehicle yellow = _vehicles[1];
+            yellow.UpdateFuel(false);
+            double fuelYellow = yellow.Fuel;
 
             label5.Text = Convert.ToString(fuelYellow);
 
             if (fuelYellow == 0)
             {
-                timerRed.Stop();
+                timerYellow.Stop();
                 label5.Text = "Empty";
                 pictureBox2.Image = Resources.dashboard_1_yellow;
             }
@@ -443,16 +437,13 @@ namespace Driftr
         private void timerYellow2_Tick(object sender, EventArgs e)
         {
             timerRed.Stop();
-            fuelYellow = fuelYellow + 10;
+            Vehicle yellow = _vehicles[1];
+            yellow.UpdateFuel(true);
+            double fuelYellow = yellow.Fuel;
 
             if (fuelYellow >= 100)
             {
                 timerYellow2.Stop();
-
-                if (fuelYellow > 100)
-                {
-                    fuelYellow = 100;
-                }
             }
 
             label5.Text = Convert.ToString(fuelYellow);
