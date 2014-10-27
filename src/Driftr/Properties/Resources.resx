@@ -121,58 +121,61 @@
   <data name="CarYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\car-yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CarRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\car-red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\index.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dashboard_0_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 0 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard_0_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard 0 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dashboard_0_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 0 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_1_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 1 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dashboard_3_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 3 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard_1_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard 1 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dashboard_2_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 2 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_2_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 2 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_3_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 3 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_3_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 3 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard_4_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 4 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="dashboard_4_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard 4 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard_2_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 2 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard_5_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard 5 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dashboard_5_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard 5 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dashboard_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MapForeground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map_foreground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\index.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard_1_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 1 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MapBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MapForeground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\map_foreground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dashboard_4_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 4 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard_3_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 3 red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard_2_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 2 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CarRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\car-red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard_5_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard 5 yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="welkombg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\welkombg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
