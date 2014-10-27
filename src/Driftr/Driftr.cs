@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Driftr.Properties;
 
@@ -24,6 +25,18 @@ namespace Driftr
         private readonly float[] _brakes = new float[2]; // 0 is no breaks, 1 is full breaks.
 
         private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
+        private readonly Dictionary<Vehicle, bool[]> _vehicleCheckpoints = new Dictionary<Vehicle, bool[]>();
+
+        private readonly List<Color> _checkpoints = new List<Color>
+            {
+                Color.FromArgb(255, 244, 0),
+                Color.FromArgb(0, 162, 232),
+                Color.FromArgb(191, 126, 90),
+                Color.FromArgb(255, 127, 39),
+                Color.FromArgb(239, 28, 36),
+                Color.FromArgb(163, 73, 164),
+                Color.FromArgb(255, 186, 214)
+            };
 
         public Driftr()
         {
@@ -33,6 +46,11 @@ namespace Driftr
             screen.MouseUp += screen_MouseUp;
             KeyUp += Driftr_KeyUp;
             KeyDown += Driftr_KeyDown;
+
+            foreach (Vehicle v in _vehicles)
+            {
+                _vehicleCheckpoints.Add(v, new bool[8]);
+            }
 
             Init(screen.Size);
             pictureBox1.Parent = screen;
@@ -109,13 +127,30 @@ namespace Driftr
             speedLabelRed.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
             speedLabelYellow.Text = Convert.ToString(Math.Round(_vehicles[1].DisplaySpeed));
 
-            // todo: figure out if the position is correct.
-            //var pos = VehicleRelativePosition(0);
-            //Debug.WriteLine("X: {0}, Y: {1}", (int)pos.X, (int)pos.Y);
-            //Color p = ((Bitmap)screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
-            //Debug.WriteLine(p);
+            //ProcessCheckpoints();
+        }
 
-            //Debug.WriteLine(VehicleRelativePosition(0));
+        private void ProcessCheckpoints()
+        {
+            var background = (Bitmap)screen.BackgroundImage;
+            for (int i = 0; i < _vehicles.Length; i++)
+            {
+                var v = _vehicles[i];
+                var pos = VehicleRelativePosition(i);
+
+                var c = background.GetPixel((int)pos.X, (int)pos.Y);
+                if (_checkpoints.Any(x => x == c))
+                {
+                    int index = _checkpoints.IndexOf(c);
+
+                    // Check if previous checkpoint was hit.
+                    int previous = index - 1;
+                    if (previous > 0 && _vehicleCheckpoints[v][previous])
+                    {
+                        _vehicleCheckpoints[v][index] = true;
+                    }
+                }
+            }
         }
 
         private Vector VehicleRelativePosition(int vehicle)
