@@ -71,10 +71,11 @@ namespace Driftr
             float x = _position.X;
             float y = _position.Y;
 
-            x += width / 2.0f / screenScale;
-            y += height / 2.0f/screenScale;
+            x *= screenScale;
+            y *= screenScale;
 
-
+            x += width / 2.0f;
+            y = (height / 2.0f) - y;
 
             return new Vector(x, y);
         }
