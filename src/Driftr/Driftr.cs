@@ -124,6 +124,12 @@ namespace Driftr
             speedLabelYellow.Text = Convert.ToString(Math.Round(_vehicles[1].DisplaySpeed));
 
             ProcessCheckpoints();
+
+            int lapsRed = _vehicleLaps[_vehicles[0]];
+            int lapsYellow = _vehicleLaps[_vehicles[1]];
+
+            roundsLabelYellow.Text = lapsYellow.ToString();
+            roundsLabelRed.Text = lapsRed.ToString();
         }
 
         private void ProcessCheckpoints()
