@@ -31,13 +31,13 @@ namespace Driftr
 
         private readonly List<Color> _checkpoints = new List<Color>
             {
-                Color.FromArgb(255, 243, 0),
+                Color.FromArgb(255, 241, 0),
                 Color.FromArgb(0, 162, 232),
                 Color.FromArgb(185, 122, 87),
-                Color.FromArgb(255, 127, 39),
-                Color.FromArgb(255, 31, 39),
-                Color.FromArgb(163, 73, 164),
-                Color.FromArgb(255, 173, 200)
+                Color.FromArgb(254, 126, 39),
+                Color.FromArgb(236, 27, 36),
+                Color.FromArgb(162, 73, 164),
+                Color.FromArgb(255, 174, 200)
             };
 
         public Driftr()
@@ -73,28 +73,14 @@ namespace Driftr
 
         void screen_MouseUp(object sender, MouseEventArgs e)
         {
-            //Debug.WriteLine("Mouse: X={0}, Y={1}", e.X, e.Y);
-            //
             var p = ((Bitmap)screen.BackgroundImage).GetPixel(e.X, e.Y);
             Debug.WriteLine(p);
-            //Debug.WriteLine(p);
-            //
-            //var pos = VehicleRelativePosition(0);
-            //Debug.WriteLine("Vehicle: X={0}, Y={1}", (int)pos.X, (int)pos.Y);
-            //
-            //var p2 = ((Bitmap)screen.BackgroundImage).GetPixel((int)pos.X, (int)pos.Y);
-            //Debug.WriteLine(p2);
-            //
-            //Debug.WriteLine("=======");
         }
 
         private void Init(Size size)
         {
-            //screen.BackgroundImage = Resources.MapBackground;
-            //
-            //screen.SizeMode = PictureBoxSizeMode.Normal;
-            //screen.BackgroundImageLayout = ImageLayout.None;
-            //screen.Image = null;
+            screen.BackgroundImage = Resources.MapBackground;
+            screen.BackgroundImageLayout = ImageLayout.None;
 
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
@@ -137,7 +123,7 @@ namespace Driftr
             speedLabelRed.Text = Convert.ToString(Math.Round(_vehicles[0].DisplaySpeed));
             speedLabelYellow.Text = Convert.ToString(Math.Round(_vehicles[1].DisplaySpeed));
 
-            //ProcessCheckpoints();
+            ProcessCheckpoints();
         }
 
         private void ProcessCheckpoints()
