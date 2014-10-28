@@ -19,7 +19,10 @@ namespace Driftr
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();            
+            help Help = new help();
+            Help.MdiParent = this;
+            Help.Show();
+            Help.Location = new Point(0, 0);
         }
 
         private void startGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -29,7 +32,8 @@ namespace Driftr
             game.Show();
             game.Location = new Point(0, 0);
             menuStrip1.Items[0].Visible = false;
-            menuStrip1.Items[1].Visible = false; 
+            menuStrip1.Items[1].Visible = false;
+            menuStrip1.Items[2].Visible = true; 
         }
 
 
@@ -39,6 +43,14 @@ namespace Driftr
         }
 
         private void start_Load(object sender, EventArgs e)
+        {
+            Welcome welcome = new Welcome();
+            welcome.MdiParent = this;
+            welcome.Show();
+            menuStrip1.Items[2].Visible = false; 
+        }
+
+        private void menuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Welcome welcome = new Welcome();
             welcome.MdiParent = this;
