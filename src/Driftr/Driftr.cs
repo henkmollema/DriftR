@@ -81,6 +81,7 @@ namespace Driftr
         {
             screen.BackgroundImage = Resources.MapBackground;
             screen.BackgroundImageLayout = ImageLayout.None;
+            screen.Image = null;
 
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
