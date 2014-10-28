@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,17 +26,18 @@ namespace Driftr
         private readonly float[] _brakes = new float[2]; // 0 is no breaks, 1 is full breaks.
 
         private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
+        private readonly Dictionary<Vehicle, int> _vehicleLaps = new Dictionary<Vehicle, int>();
         private readonly Dictionary<Vehicle, bool[]> _vehicleCheckpoints = new Dictionary<Vehicle, bool[]>();
 
         private readonly List<Color> _checkpoints = new List<Color>
             {
-                Color.FromArgb(255, 244, 0),
+                Color.FromArgb(255, 243, 0),
                 Color.FromArgb(0, 162, 232),
-                Color.FromArgb(191, 126, 90),
+                Color.FromArgb(185, 122, 87),
                 Color.FromArgb(255, 127, 39),
-                Color.FromArgb(239, 28, 36),
+                Color.FromArgb(255, 31, 39),
                 Color.FromArgb(163, 73, 164),
-                Color.FromArgb(255, 186, 214)
+                Color.FromArgb(255, 173, 200)
             };
 
         public Driftr()
@@ -47,9 +49,16 @@ namespace Driftr
             KeyUp += Driftr_KeyUp;
             KeyDown += Driftr_KeyDown;
 
+            // Add vehicles with zero laps.
+            foreach (var v in _vehicles)
+            {
+                _vehicleLaps.Add(v, 0);
+            }
+
+            // Add vehicles with fixed bool[] to count laps.
             foreach (Vehicle v in _vehicles)
             {
-                _vehicleCheckpoints.Add(v, new bool[8]);
+                _vehicleCheckpoints.Add(v, new bool[7]);
             }
 
             Init(screen.Size);
@@ -66,7 +75,8 @@ namespace Driftr
         {
             //Debug.WriteLine("Mouse: X={0}, Y={1}", e.X, e.Y);
             //
-            //var p = ((Bitmap)screen.BackgroundImage).GetPixel(e.X, e.Y);
+            var p = ((Bitmap)screen.BackgroundImage).GetPixel(e.X, e.Y);
+            Debug.WriteLine(p);
             //Debug.WriteLine(p);
             //
             //var pos = VehicleRelativePosition(0);
@@ -135,19 +145,41 @@ namespace Driftr
             var background = (Bitmap)screen.BackgroundImage;
             for (int i = 0; i < _vehicles.Length; i++)
             {
-                var v = _vehicles[i];
+                var vehicle = _vehicles[i];
                 var pos = VehicleRelativePosition(i);
 
-                var c = background.GetPixel((int)pos.X, (int)pos.Y);
-                if (_checkpoints.Any(x => x == c))
+                var color = background.GetPixel((int)pos.X, (int)pos.Y);
+                if (_checkpoints.Any(x => x == color))
                 {
-                    int index = _checkpoints.IndexOf(c);
+                    int index = _checkpoints.IndexOf(color);
+
+                    // If every checkpoint is hit and we hit the finish line again,
+                    // reset every checkpoints except the finish and add a lap.
+                    if (_vehicleCheckpoints[vehicle].All(x => x) && index == 0)
+                    {
+                        for (int n = 1; n < _vehicleCheckpoints[vehicle].Length; n++)
+                        {
+                            _vehicleCheckpoints[vehicle][n] = false;
+                        }
+
+                        Debug.WriteLine("Lap: {0}", _vehicleLaps[vehicle] + 1);
+
+                        // Increment lap count.
+                        if (++_vehicleLaps[vehicle] == 3)
+                        {
+                            Debug.WriteLine("finished");
+
+                            // todo: finish..   
+                        }
+                        return;
+                    }
 
                     // Check if previous checkpoint was hit.
-                    int previous = index - 1;
-                    if (previous > 0 && _vehicleCheckpoints[v][previous])
+                    int prev = index - 1;
+                    if (prev == -1 || _vehicleCheckpoints[vehicle][prev])
                     {
-                        _vehicleCheckpoints[v][index] = true;
+                        Debug.WriteLine("Checkpoint index {0}: {1} hit", index, color);
+                        _vehicleCheckpoints[vehicle][index] = true;
                     }
                 }
             }
