@@ -89,6 +89,8 @@ namespace Driftr
             _torque += worldOffset % worldForce;
         }
 
+        public bool Collision { get; set; }
+
         public virtual void Update(float timeStep)
         {
             // Linear physics.

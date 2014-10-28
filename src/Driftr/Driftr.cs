@@ -40,6 +40,10 @@ namespace Driftr
                 Color.FromArgb(255, 174, 200)
             };
 
+        private static readonly Color _pitstop = Color.FromArgb(92, 92, 92);
+        private static readonly Color _obstacle = Color.FromArgb(16, 245, 0);
+        private static readonly Color _grass = Color.FromArgb(21, 115, 0);
+
         public Driftr()
         {
             InitializeComponent();
@@ -81,6 +85,7 @@ namespace Driftr
         {
             screen.BackgroundImage = Resources.MapBackground;
             screen.BackgroundImageLayout = ImageLayout.None;
+            screen.Image = null;
 
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
@@ -177,6 +182,11 @@ namespace Driftr
             }
         }
 
+        private Vector VehicleRelativePosition(Vehicle v)
+        {
+            return VehicleRelativePosition(Array.FindIndex(_vehicles, x => v == x));
+        }
+
         private Vector VehicleRelativePosition(int vehicle)
         {
             return _vehicles[vehicle].RelativePosition(_bufferSize.Width, _bufferSize.Height, screenScale);
@@ -191,16 +201,45 @@ namespace Driftr
             // Apply vehicle controls.
             for (int i = 0; i < _vehicles.Length; i++)
             {
-                _vehicles[i].SetSteering(_steerings[i]);
-                _vehicles[i].SetThrottle(_throttles[i]);
-                _vehicles[i].SetBrakes(_brakes[i]);
+                var v = _vehicles[i];
+
+                v.Collision = ObstacleCollision(v);
+
+                v.SetSteering(_steerings[i]);
+                v.SetThrottle(_throttles[i], IsOffroad(v));
+                v.SetBrakes(_brakes[i]);
 
                 _vehicles[i].Update(etime);
+
+                v.Collision = false;
             }
 
             ConstrainVehicle();
 
             screen.Invalidate();
+        }
+
+        private bool IsInPitstop(Vehicle v)
+        {
+            return GetColor(v) == _pitstop;
+        }
+
+        private bool IsOffroad(Vehicle v)
+        {
+            return GetColor(v) == _grass;
+        }
+
+        private bool ObstacleCollision(Vehicle v)
+        {
+            return GetColor(v) == _obstacle;
+        }
+
+        private Color GetColor(Vehicle v)
+        {
+            var pos = VehicleRelativePosition(v);
+            var background = (Bitmap)screen.BackgroundImage;
+            var color = background.GetPixel((int)pos.X, (int)pos.Y);
+            return color;
         }
 
         private void ConstrainVehicle()
@@ -331,16 +370,8 @@ namespace Driftr
             DoFrame();
         }
 
-        //private double fuelRed = 100;
-        private double fuelYellow = 100;
-        private int pitstopsRed;
-        private int pitstopsYellow;
-
         private Timer timerRed;
-        private Timer timerRed2;
         private Timer timerYellow;
-        private Timer timerYellow2;
-
 
         private void InitTimer()
         {
@@ -355,28 +386,15 @@ namespace Driftr
             timerYellow.Start();
         }
 
-        private void InittimerRed2()
-        {
-            timerRed2 = new Timer();
-            timerRed2.Tick += timerRed2_Tick;
-            timerRed2.Interval = 1000; // in miliseconds
-            timerRed2.Start();
-
-            timerYellow2 = new Timer();
-            timerYellow2.Tick += timerYellow2_Tick;
-            timerYellow2.Interval = 1000; // in miliseconds
-            timerYellow2.Start();
-        }
-
         private void timerRed_Tick(object sender, EventArgs e)
         {
             Vehicle red = _vehicles[0];
-            red.UpdateFuel(false);
+            red.UpdateFuel(IsInPitstop(red));
             double fuelRed = red.Fuel;
 
             label4.Text = Convert.ToString(fuelRed);
 
-            if (fuelRed == 0)
+            if (fuelRed <= 0)
             {
                 timerRed.Stop();
                 label4.Text = "Empty";
@@ -410,51 +428,10 @@ namespace Driftr
             }
         }
 
-        private void timerRed2_Tick(object sender, EventArgs e)
-        {
-            timerRed.Stop();
-            Vehicle red = _vehicles[0];
-
-            red.UpdateFuel(true);
-            double fuelRed = red.Fuel;
-
-            if (fuelRed >= 100)
-            {
-                timerRed2.Stop();
-            }
-
-            label4.Text = Convert.ToString(fuelRed);
-
-            if (fuelRed == 100)
-            {
-                pictureBox1.Image = Resources.dashboard_5_red;
-            }
-            else if (fuelRed >= 80 && fuelRed < 100)
-            {
-                pictureBox1.Image = Resources.dashboard_4_red;
-            }
-            else if (fuelRed >= 60 && fuelRed < 80)
-            {
-                pictureBox1.Image = Resources.dashboard_3_red;
-            }
-            else if (fuelRed >= 40 && fuelRed < 60)
-            {
-                pictureBox1.Image = Resources.dashboard_2_red;
-            }
-            else if (fuelRed >= 20 && fuelRed < 40)
-            {
-                pictureBox1.Image = Resources.dashboard_1_red;
-            }
-            else
-            {
-                pictureBox1.Image = Resources.dashboard_0_red;
-            }
-        }
-
         private void timerYellow_Tick(object sender, EventArgs e)
         {
             Vehicle yellow = _vehicles[1];
-            yellow.UpdateFuel(false);
+            yellow.UpdateFuel(IsInPitstop(yellow));
             double fuelYellow = yellow.Fuel;
 
             label5.Text = Convert.ToString(fuelYellow);
@@ -465,7 +442,6 @@ namespace Driftr
                 label5.Text = "Empty";
                 pictureBox2.Image = Resources.dashboard_1_yellow;
             }
-
 
             if (fuelYellow <= 100 && fuelYellow > 80)
             {
@@ -484,46 +460,6 @@ namespace Driftr
                 pictureBox2.Image = Resources.dashboard_2_yellow;
             }
             else if (fuelYellow <= 20 && fuelYellow > 0)
-            {
-                pictureBox2.Image = Resources.dashboard_1_yellow;
-            }
-            else
-            {
-                pictureBox2.Image = Resources.dashboard_0_yellow;
-            }
-        }
-
-        private void timerYellow2_Tick(object sender, EventArgs e)
-        {
-            timerRed.Stop();
-            Vehicle yellow = _vehicles[1];
-            yellow.UpdateFuel(true);
-            double fuelYellow = yellow.Fuel;
-
-            if (fuelYellow >= 100)
-            {
-                timerYellow2.Stop();
-            }
-
-            label5.Text = Convert.ToString(fuelYellow);
-
-            if (fuelYellow == 100)
-            {
-                pictureBox2.Image = Resources.dashboard_5_yellow;
-            }
-            else if (fuelYellow >= 80 && fuelYellow < 100)
-            {
-                pictureBox2.Image = Resources.dashboard_4_yellow;
-            }
-            else if (fuelYellow >= 60 && fuelYellow < 80)
-            {
-                pictureBox2.Image = Resources.dashboard_3_yellow;
-            }
-            else if (fuelYellow >= 40 && fuelYellow < 60)
-            {
-                pictureBox2.Image = Resources.dashboard_2_yellow;
-            }
-            else if (fuelYellow >= 20 && fuelYellow < 40)
             {
                 pictureBox2.Image = Resources.dashboard_1_yellow;
             }

@@ -31,9 +31,26 @@ namespace Driftr
             _wheels[1].SetSteeringAngle(-steering * steeringLock);
         }
 
-        public void SetThrottle(float throttle)
+        public void SetThrottle(float throttle, bool offroad)
         {
             const float torque = 20.0f;
+
+            if (offroad)
+            {
+                if (DisplaySpeed > GameSettings.OffroadSpeed)
+                {
+                    throttle = -3;
+                }
+                else
+                {
+                    throttle /= 2;
+                }
+            }
+
+            if (Collision)
+            {
+                SetBrakes(3);
+            }
 
             // When the fuel is empty, you can not throttle.
             if (Fuel <= 0 && DisplaySpeed >= GameSettings.EmptyFuelSpeed)
@@ -144,7 +161,9 @@ namespace Driftr
         public class Wheel
         {
             private Vector _forwardAxis, _sideAxis;
-            private float _wheelTorque, _wheelSpeed, _wheelInertia, _wheelRadius;
+            private float _wheelTorque, _wheelSpeed;
+            private readonly float _wheelInertia;
+            private readonly float _wheelRadius;
             private readonly Vector _position = new Vector();
 
             public Wheel(Vector position, float radius)
