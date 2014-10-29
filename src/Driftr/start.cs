@@ -17,7 +17,7 @@ namespace Driftr
             InitializeComponent();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        public void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             help Help = new help();
             Help.MdiParent = this;
@@ -31,30 +31,18 @@ namespace Driftr
             game.MdiParent = this;
             game.Show();
             game.Location = new Point(0, 0);
-            menuStrip1.Items[0].Visible = false;
-            menuStrip1.Items[1].Visible = false;
-            menuStrip1.Items[2].Visible = true; 
         }
 
 
         private void settToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
-        }
+            if (this.MdiChildren.Length > 0)    //close childrens only when there are some
+            {
+                foreach (Form childForm in this.MdiChildren)
+                    childForm.Close();
 
-        private void start_Load(object sender, EventArgs e)
-        {
-            Welcome welcome = new Welcome();
-            welcome.MdiParent = this;
-            welcome.Show();
-            menuStrip1.Items[2].Visible = false; 
-        }
-
-        private void menuToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Welcome welcome = new Welcome();
-            welcome.MdiParent = this;
-            welcome.Show();
+                //e.Cancel = true;  //cancel Form2 closing
+            }
         }
     }
 }
