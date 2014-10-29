@@ -150,8 +150,6 @@
     <Content Include="Resources\car-yellow.png" />
     <Content Include="Resources\car-red.png" />
     <None Include="Resources\driftr help scherm.png" />
-    <Content Include="Resources\map_background.png" />
-    <None Include="Resources\map_foreground - GOED BITCHES.png" />
     <None Include="Resources\index.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
