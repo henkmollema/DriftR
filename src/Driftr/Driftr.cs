@@ -150,21 +150,6 @@ namespace Driftr
                 var pos = VehicleRelativePosition(i);
 
                 var color = background.GetPixel((int)pos.X, (int)pos.Y);
-
-                //if (color == _pitstopCheckpoint)
-                //{
-                //    if (_vehiclePitstopsCheckpoint[vehicle])
-                //    {
-                //        _vehiclePitstops[vehicle]++;
-                //    }
-                //    else
-                //    {
-                //        _vehiclePitstopsCheckpoint[vehicle] = true;
-                //    }
-                //
-                //    return;
-                //}
-
                 if (_checkpoints.Any(x => x == color))
                 {
                     int index = _checkpoints.IndexOf(color);
