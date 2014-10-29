@@ -27,6 +27,9 @@ namespace Driftr
 
         private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
         private readonly Dictionary<Vehicle, int> _vehicleLaps = new Dictionary<Vehicle, int>();
+
+        private readonly Dictionary<Vehicle, int> _vehiclePitstops = new Dictionary<Vehicle, int>();
+        private readonly Dictionary<Vehicle, bool> _vehiclePitstopsCheckpoint = new Dictionary<Vehicle, bool>();
         private readonly Dictionary<Vehicle, bool[]> _vehicleCheckpoints = new Dictionary<Vehicle, bool[]>();
 
         private readonly List<Color> _checkpoints = new List<Color>
@@ -43,6 +46,7 @@ namespace Driftr
         private static readonly Color _pitstop = Color.FromArgb(92, 92, 92);
         private static readonly Color _obstacle = Color.FromArgb(16, 245, 0);
         private static readonly Color _grass = Color.FromArgb(21, 115, 0);
+        private static readonly Color _pitstopCheckpoint = Color.FromArgb(0, 246, 255);
 
         public Driftr()
         {
@@ -57,12 +61,9 @@ namespace Driftr
             foreach (var v in _vehicles)
             {
                 _vehicleLaps.Add(v, 0);
-            }
-
-            // Add vehicles with fixed bool[] to count laps.
-            foreach (Vehicle v in _vehicles)
-            {
                 _vehicleCheckpoints.Add(v, new bool[7]);
+                _vehiclePitstops.Add(v, 0);
+                _vehiclePitstopsCheckpoint.Add(v, false);
             }
 
             Init(screen.Size);
@@ -85,7 +86,7 @@ namespace Driftr
         {
             screen.BackgroundImage = Resources.MapBackground;
             screen.BackgroundImageLayout = ImageLayout.None;
-            screen.Image = null;
+            //screen.Image = null;
 
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
@@ -146,6 +147,21 @@ namespace Driftr
                 var pos = VehicleRelativePosition(i);
 
                 var color = background.GetPixel((int)pos.X, (int)pos.Y);
+
+                //if (color == _pitstopCheckpoint)
+                //{
+                //    if (_vehiclePitstopsCheckpoint[vehicle])
+                //    {
+                //        _vehiclePitstops[vehicle]++;
+                //    }
+                //    else
+                //    {
+                //        _vehiclePitstopsCheckpoint[vehicle] = true;
+                //    }
+                //
+                //    return;
+                //}
+
                 if (_checkpoints.Any(x => x == color))
                 {
                     int index = _checkpoints.IndexOf(color);
@@ -159,12 +175,12 @@ namespace Driftr
                             _vehicleCheckpoints[vehicle][n] = false;
                         }
 
-                        Debug.WriteLine("Lap: {0}", _vehicleLaps[vehicle] + 1);
+                        //Debug.WriteLine("Lap: {0}", _vehicleLaps[vehicle] + 1);
 
                         // Increment lap count.
                         if (++_vehicleLaps[vehicle] == 3)
                         {
-                            Debug.WriteLine("finished");
+                            //Debug.WriteLine("finished");
 
                             // todo: finish..   
                         }
@@ -175,7 +191,7 @@ namespace Driftr
                     int prev = index - 1;
                     if (prev == -1 || _vehicleCheckpoints[vehicle][prev])
                     {
-                        Debug.WriteLine("Checkpoint index {0}: {1} hit", index, color);
+                        //Debug.WriteLine("Checkpoint index {0}: {1} hit", index, color);
                         _vehicleCheckpoints[vehicle][index] = true;
                     }
                 }
@@ -203,7 +219,7 @@ namespace Driftr
             {
                 var v = _vehicles[i];
 
-                v.Collision = ObstacleCollision(v);
+                v.Collision = ObstacleCollision(v) || Collission();
 
                 v.SetSteering(_steerings[i]);
                 v.SetThrottle(_throttles[i], IsOffroad(v));
@@ -240,6 +256,14 @@ namespace Driftr
             var background = (Bitmap)screen.BackgroundImage;
             var color = background.GetPixel((int)pos.X, (int)pos.Y);
             return color;
+        }
+
+        private bool Collission()
+        {
+            var red = _vehicles[0];
+            var yellow = _vehicles[1];
+
+            return red.CollissionWith(yellow);
         }
 
         private void ConstrainVehicle()
@@ -396,7 +420,6 @@ namespace Driftr
 
             if (fuelRed <= 0)
             {
-                timerRed.Stop();
                 label4.Text = "Empty";
                 pictureBox1.Image = Resources.dashboard_1_red;
             }
@@ -436,9 +459,8 @@ namespace Driftr
 
             label5.Text = Convert.ToString(fuelYellow);
 
-            if (fuelYellow == 0)
+            if (fuelYellow <= 0)
             {
-                timerYellow.Stop();
                 label5.Text = "Empty";
                 pictureBox2.Image = Resources.dashboard_1_yellow;
             }

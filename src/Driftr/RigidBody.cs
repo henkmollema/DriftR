@@ -98,6 +98,10 @@ namespace Driftr
             _velocity += acceleration * timeStep; // V = V + A * T
             _position += _velocity * timeStep; // P = P + V * T
 
+            // Set the location of the rectangle to the relative position of the vehicle.
+            var rel = RelativePosition(1000, 700, 3);
+            _rect.Location = new Point((int)rel.X, (int)rel.Y);
+
             // Clear the forces.
             _forces = new Vector(0, 0);
 
@@ -170,6 +174,13 @@ namespace Driftr
             {
                 return _velocity;
             }
+        }
+
+        public bool CollissionWith(Vehicle v)
+        {
+            //(X2' >= X1 && X1' <= X2) && (Y2' >= Y1 && Y1' <= Y2)
+
+            return Rectangle.Intersect(_rect, v._rect) != Rectangle.Empty;
         }
     }
 }
