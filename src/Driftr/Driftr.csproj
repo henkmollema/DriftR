@@ -132,6 +132,7 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+    <None Include="Resources\racebaan visuele lvl%281%29.png" />
     <None Include="Resources\racegame zwarte racebaan.png" />
     <None Include="Resources\welkombg.png" />
     <None Include="Resources\map_foreground.png" />

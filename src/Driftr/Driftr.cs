@@ -27,7 +27,9 @@ namespace Driftr
 
         private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
         private readonly Dictionary<Vehicle, int> _vehicleLaps = new Dictionary<Vehicle, int>();
-
+ 
+        private readonly Dictionary<Vehicle, List<TimeSpan>> _vehicleLapTimes = new Dictionary<Vehicle, List<TimeSpan>>();
+        private readonly Dictionary<Vehicle, Stopwatch> _vehicleStopwatch = new Dictionary<Vehicle, Stopwatch>();
         private readonly Dictionary<Vehicle, int> _vehiclePitstops = new Dictionary<Vehicle, int>();
         private readonly Dictionary<Vehicle, bool> _vehiclePitstopsCheckpoint = new Dictionary<Vehicle, bool>();
         private readonly Dictionary<Vehicle, bool[]> _vehicleCheckpoints = new Dictionary<Vehicle, bool[]>();
@@ -50,7 +52,6 @@ namespace Driftr
 
         public Driftr()
         {
-            LapTimes();
             InitializeComponent();
             Application.Idle += Application_Idle;
             screen.Paint += screen_Paint;
@@ -65,8 +66,11 @@ namespace Driftr
                 _vehicleCheckpoints.Add(v, new bool[7]);
                 _vehiclePitstops.Add(v, 0);
                 _vehiclePitstopsCheckpoint.Add(v, false);
+                _vehicleStopwatch.Add(v, new Stopwatch());
+                _vehicleLapTimes.Add(v, new List<TimeSpan>());
             }
 
+            StartStopwatches();
             Init(screen.Size);
             pictureBox1.Parent = screen;
             pictureBox2.Parent = screen;
@@ -139,6 +143,17 @@ namespace Driftr
 
             roundsLabelYellow.Text = lapsYellow.ToString();
             roundsLabelRed.Text = lapsRed.ToString();
+            label1.Text = "";
+            label2.Text = "";
+
+            foreach (var x in _vehicleLapTimes[_vehicles[0]])
+            {
+                label1.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
+            }
+            foreach (var x in _vehicleLapTimes[_vehicles[1]])
+            {
+                label2.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
+            }
         }
 
         private void ProcessCheckpoints()
@@ -177,6 +192,11 @@ namespace Driftr
                         {
                             _vehicleCheckpoints[vehicle][n] = false;
                         }
+                        
+                        _vehicleLapTimes[vehicle].Add(_vehicleStopwatch[vehicle].Elapsed);
+
+                        _vehicleStopwatch[vehicle].Reset();
+                        _vehicleStopwatch[vehicle].Start();
 
                         //Debug.WriteLine("Lap: {0}", _vehicleLaps[vehicle] + 1);
 
@@ -400,8 +420,6 @@ namespace Driftr
         private Timer timerRed;
         private Timer timerYellow;
         private Timer timerLaps;
-        private Stopwatch lapTimeRed;
-        private Stopwatch lapTimeYellow;
 
         private void InitTimer()
         {
@@ -504,20 +522,22 @@ namespace Driftr
 
         private void timerLaps_Tick(object sender, EventArgs e)
         {
-            string ealpsedRed = lapTimeRed.Elapsed.Duration().ToString("mm':'ss':'ff");
+            var red = _vehicleStopwatch[_vehicles[0]];
+
+            string ealpsedRed = red.Elapsed.Duration().ToString("mm':'ss':'ff");
             lapTimeRedLabel.Text = ealpsedRed;
 
-            string ealpsedYellow = lapTimeYellow.Elapsed.Duration().ToString("mm':'ss':'ff");
+            var yellow = _vehicleStopwatch[_vehicles[1]];
+            string ealpsedYellow = yellow.Elapsed.Duration().ToString("mm':'ss':'ff");
             lapTimeYellowLabel.Text = ealpsedYellow;
         }
 
-        private void LapTimes()
+        private void StartStopwatches()
         {
-            lapTimeRed = new Stopwatch();
-            lapTimeRed.Start();
-
-            lapTimeYellow = new Stopwatch();
-            lapTimeYellow.Start();
+            foreach(var s in _vehicleStopwatch)
+            {
+                s.Value.Start();
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
