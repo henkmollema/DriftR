@@ -46,6 +46,7 @@ namespace Driftr
 
         public Driftr()
         {
+            LapTimes();
             InitializeComponent();
             Application.Idle += Application_Idle;
             screen.Paint += screen_Paint;
@@ -68,6 +69,8 @@ namespace Driftr
             Init(screen.Size);
             pictureBox1.Parent = screen;
             pictureBox2.Parent = screen;
+            //lapTimeRedLabel.Parent = screen;
+            //lapTimeYellowLabel.Parent = screen;
 
             // brandstof
             InitTimer();
@@ -372,6 +375,9 @@ namespace Driftr
 
         private Timer timerRed;
         private Timer timerYellow;
+        private Timer timerLaps;
+        private Stopwatch lapTimeRed;
+        private Stopwatch lapTimeYellow;
 
         private void InitTimer()
         {
@@ -384,6 +390,11 @@ namespace Driftr
             timerYellow.Tick += timerYellow_Tick;
             timerYellow.Interval = 1000; // in miliseconds
             timerYellow.Start();
+
+            timerLaps = new Timer();
+            timerLaps.Tick += timerLaps_Tick;
+            timerLaps.Interval = 100; // in miliseconds
+            timerLaps.Start();
         }
 
         private void timerRed_Tick(object sender, EventArgs e)
@@ -467,6 +478,24 @@ namespace Driftr
             {
                 pictureBox2.Image = Resources.dashboard_0_yellow;
             }
+        }
+
+        private void timerLaps_Tick(object sender, EventArgs e)
+        {
+            string ealpsedRed = lapTimeRed.Elapsed.Duration().ToString("mm':'ss':'ff");
+            lapTimeRedLabel.Text = ealpsedRed;
+
+            string ealpsedYellow = lapTimeYellow.Elapsed.Duration().ToString("mm':'ss':'ff");
+            lapTimeYellowLabel.Text = ealpsedYellow;
+        }
+
+        private void LapTimes()
+        {
+            lapTimeRed = new Stopwatch();
+            lapTimeRed.Start();
+
+            lapTimeYellow = new Stopwatch();
+            lapTimeYellow.Start();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

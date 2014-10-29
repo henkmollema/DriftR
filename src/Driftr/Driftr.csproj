@@ -117,24 +117,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dashboard 0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 5.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
