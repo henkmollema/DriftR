@@ -27,7 +27,7 @@ namespace Driftr
 
         private readonly Vehicle[] _vehicles = { new Vehicle(), new Vehicle() };
         private readonly Dictionary<Vehicle, int> _vehicleLaps = new Dictionary<Vehicle, int>();
- 
+
         private readonly Dictionary<Vehicle, List<TimeSpan>> _vehicleLapTimes = new Dictionary<Vehicle, List<TimeSpan>>();
         private readonly Dictionary<Vehicle, Stopwatch> _vehicleStopwatch = new Dictionary<Vehicle, Stopwatch>();
         private readonly Dictionary<Vehicle, int> _vehiclePitstops = new Dictionary<Vehicle, int>();
@@ -35,27 +35,25 @@ namespace Driftr
         private readonly Dictionary<Vehicle, bool[]> _vehicleCheckpoints = new Dictionary<Vehicle, bool[]>();
 
         private readonly List<Color> _checkpoints = new List<Color>
-            {
-                Color.FromArgb(255, 241, 0),
-                Color.FromArgb(0, 162, 232),
-                Color.FromArgb(185, 122, 87),
-                Color.FromArgb(254, 126, 39),
-                Color.FromArgb(236, 27, 36),
-                Color.FromArgb(162, 73, 164),
-                Color.FromArgb(255, 174, 200)
-            };
+                                                        {
+                                                            Color.FromArgb(255, 241, 0),
+                                                            Color.FromArgb(0, 162, 232),
+                                                            Color.FromArgb(185, 122, 87),
+                                                            Color.FromArgb(254, 126, 39),
+                                                            Color.FromArgb(236, 27, 36),
+                                                            Color.FromArgb(162, 73, 164),
+                                                            Color.FromArgb(255, 174, 200)
+                                                        };
 
         private static readonly Color _pitstop = Color.FromArgb(92, 92, 92);
         private static readonly Color _obstacle = Color.FromArgb(16, 245, 0);
         private static readonly Color _grass = Color.FromArgb(21, 115, 0);
-        private static readonly Color _pitstopCheckpoint = Color.FromArgb(0, 246, 255);
 
         public Driftr()
         {
             InitializeComponent();
             Application.Idle += Application_Idle;
             screen.Paint += screen_Paint;
-            screen.MouseUp += screen_MouseUp;
             KeyUp += Driftr_KeyUp;
             KeyDown += Driftr_KeyDown;
 
@@ -70,7 +68,7 @@ namespace Driftr
                 _vehicleLapTimes.Add(v, new List<TimeSpan>());
             }
 
-            StartStopwatches();
+            //StartStopwatches();
             Init(screen.Size);
             pictureBox1.Parent = screen;
             pictureBox2.Parent = screen;
@@ -85,12 +83,6 @@ namespace Driftr
             pictureBox2.Image = Resources.dashboard_5_yellow;
         }
 
-        void screen_MouseUp(object sender, MouseEventArgs e)
-        {
-            var p = ((Bitmap)screen.BackgroundImage).GetPixel(e.X, e.Y);
-            Debug.WriteLine(p);
-        }
-
         private void Init(Size size)
         {
             screen.BackgroundImage = Resources.MapBackground;
@@ -100,7 +92,7 @@ namespace Driftr
             _bufferSize = size;
             _backbuffer = new Bitmap(_bufferSize.Width, _bufferSize.Height);
             _graphics = Graphics.FromImage(_backbuffer);
-            
+
             _timer.GetETime();
 
             _vehicles[0].Setup(new Vector(3, 8) / 2.0f, 5, Resources.CarRed);
@@ -156,6 +148,16 @@ namespace Driftr
             {
                 lapTimeYellowLabel2.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
             }
+
+            if (_vehicleLaps[_vehicles[0]] == 5)
+            {
+                lapTimeRedLabel2.Text += "FINISH!";
+            }
+
+            if (_vehicleLaps[_vehicles[1]] == 5)
+            {
+                lapTimeYellowLabel2.Text += "FINISH!";
+            }
         }
 
         private void ProcessCheckpoints()
@@ -165,22 +167,7 @@ namespace Driftr
             {
                 var vehicle = _vehicles[i];
                 var pos = VehicleRelativePosition(i);
-
                 var color = background.GetPixel((int)pos.X, (int)pos.Y);
-
-                //if (color == _pitstopCheckpoint)
-                //{
-                //    if (_vehiclePitstopsCheckpoint[vehicle])
-                //    {
-                //        _vehiclePitstops[vehicle]++;
-                //    }
-                //    else
-                //    {
-                //        _vehiclePitstopsCheckpoint[vehicle] = true;
-                //    }
-                //
-                //    return;
-                //}
 
                 if (_checkpoints.Any(x => x == color))
                 {
@@ -194,7 +181,7 @@ namespace Driftr
                         {
                             _vehicleCheckpoints[vehicle][n] = false;
                         }
-                        
+
                         _vehicleLapTimes[vehicle].Add(_vehicleStopwatch[vehicle].Elapsed);
 
                         _vehicleStopwatch[vehicle].Reset();
@@ -342,6 +329,23 @@ namespace Driftr
 
         private void Driftr_KeyDown(object sender, KeyEventArgs e)
         {
+            // Start vehicle stopwatches.
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                case Keys.Right:
+                case Keys.Up:
+                case Keys.Down:
+                    _vehicleStopwatch[_vehicles[0]].Start();
+                    break;
+                case Keys.W:
+                case Keys.A:
+                case Keys.S:
+                case Keys.D:
+                    _vehicleStopwatch[_vehicles[1]].Start();
+                    break;
+            }
+
             switch (e.KeyCode)
             {
                 case Keys.Left:
@@ -532,14 +536,6 @@ namespace Driftr
             var yellow = _vehicleStopwatch[_vehicles[1]];
             string ealpsedYellow = yellow.Elapsed.Duration().ToString("mm':'ss':'ff");
             lapTimeYellowLabel.Text = ealpsedYellow;
-        }
-
-        private void StartStopwatches()
-        {
-            foreach(var s in _vehicleStopwatch)
-            {
-                s.Value.Start();
-            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
