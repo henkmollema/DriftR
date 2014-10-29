@@ -74,8 +74,10 @@ namespace Driftr
             Init(screen.Size);
             pictureBox1.Parent = screen;
             pictureBox2.Parent = screen;
-            //lapTimeRedLabel.Parent = screen;
-            //lapTimeYellowLabel.Parent = screen;
+            lapTimeRedLabel.BackColor = Color.FromArgb(31, 161, 1);
+            lapTimeYellowLabel.BackColor = Color.FromArgb(31, 161, 1);
+            lapTimeRedLabel2.BackColor = Color.FromArgb(31, 161, 1);
+            lapTimeYellowLabel2.BackColor = Color.FromArgb(31, 161, 1);
 
             // brandstof
             InitTimer();
@@ -143,16 +145,16 @@ namespace Driftr
 
             roundsLabelYellow.Text = lapsYellow.ToString();
             roundsLabelRed.Text = lapsRed.ToString();
-            label1.Text = "";
-            label2.Text = "";
+            lapTimeRedLabel2.Text = "";
+            lapTimeYellowLabel2.Text = "";
 
             foreach (var x in _vehicleLapTimes[_vehicles[0]])
             {
-                label1.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
+                lapTimeRedLabel2.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
             }
             foreach (var x in _vehicleLapTimes[_vehicles[1]])
             {
-                label2.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
+                lapTimeYellowLabel2.Text += x.ToString("mm':'ss':'ff") + Environment.NewLine;
             }
         }
 
