@@ -132,8 +132,8 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+    <Content Include="Resources\nhl_logo.jpg" />
     <None Include="Resources\racebaan visuele lvl%281%29.png" />
-    <None Include="Resources\racegame zwarte racebaan.png" />
     <None Include="Resources\welkombg.png" />
     <None Include="Resources\map_foreground.png" />
     <None Include="Resources\dashboard 3 red.png" />
@@ -153,7 +153,6 @@
     <None Include="Resources\driftr help scherm.png" />
     <Content Include="Resources\map_background.png" />
     <None Include="Resources\map_foreground - GOED BITCHES.png" />
-    <None Include="Resources\index.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
