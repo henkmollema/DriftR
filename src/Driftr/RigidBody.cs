@@ -45,8 +45,8 @@ namespace Driftr
             // Generate the viewable rectangle.
             _rect.X = (int)-_halfsize.X;
             _rect.Y = (int)-_halfsize.Y;
-            _rect.Width = (int)(_halfsize.X * 2.0f);
-            _rect.Height = (int)(_halfsize.Y * 2.0f);
+            _rect.Width = (int)(_halfsize.X * 8.0f);
+            _rect.Height = (int)(_halfsize.Y * 8.0f);
         }
 
         public void SetLocation(Vector position, float angle)
