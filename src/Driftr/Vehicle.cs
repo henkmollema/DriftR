@@ -47,11 +47,6 @@ namespace Driftr
                 }
             }
 
-            if (Collision && DisplaySpeed > 10)
-            {
-                SetBrakes(2.0f);
-            }
-
             // When the fuel is empty, you can not throttle.
             if (Fuel <= 0 && DisplaySpeed >= GameSettings.EmptyFuelSpeed)
             {

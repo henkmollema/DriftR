@@ -95,6 +95,15 @@ namespace Driftr
         {
             // Linear physics.
             Vector acceleration = _forces / _mass; // A = F / M
+
+            if (Collision)
+            {
+                if (_velocity.Length > 20)
+                {
+                    _velocity /= 4;
+                }
+            }
+
             _velocity += acceleration * timeStep; // V = V + A * T
             _position += _velocity * timeStep; // P = P + V * T
 
