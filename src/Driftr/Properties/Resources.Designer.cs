@@ -213,16 +213,6 @@ namespace Driftr.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap index {
-            get {
-                object obj = ResourceManager.GetObject("index", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap MapBackground {
             get {
                 object obj = ResourceManager.GetObject("MapBackground", resourceCulture);
@@ -236,6 +226,16 @@ namespace Driftr.Properties {
         internal static System.Drawing.Bitmap MapForeground {
             get {
                 object obj = ResourceManager.GetObject("MapForeground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NhlLogo {
+            get {
+                object obj = ResourceManager.GetObject("NhlLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
