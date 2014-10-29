@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Driftr
 {
-    public partial class Welcome : Form
+    public partial class help : Form
     {
-        public Welcome()
+        public help()
         {
             InitializeComponent();
+        }
+
+        private void help_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Driftr
 {
-    partial class Welcome
+    partial class help
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,16 @@
         {
             this.SuspendLayout();
             // 
-            // Welcome
+            // help
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Driftr.Properties.Resources.welkombg;
+            this.BackgroundImage = global::Driftr.Properties.Resources.driftr_help_scherm;
             this.ClientSize = new System.Drawing.Size(1000, 700);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Welcome";
-            this.Text = "Welcome";
+            this.Name = "help";
+            this.Text = "help";
+            this.Load += new System.EventHandler(this.help_Load);
             this.ResumeLayout(false);
 
         }

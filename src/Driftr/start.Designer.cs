@@ -57,8 +57,8 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.exitToolStripMenuItem.Text = "Settings";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.exitToolStripMenuItem.Text = "Instructies";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // settToolStripMenuItem
@@ -72,12 +72,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Driftr.Properties.Resources.welkombg;
             this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.Name = "start";
             this.Text = "Race Game";
-            this.Load += new System.EventHandler(this.start_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

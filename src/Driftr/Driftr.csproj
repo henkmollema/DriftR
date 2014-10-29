@@ -66,6 +66,12 @@
       <DependentUpon>Driftr.cs</DependentUpon>
     </Compile>
     <Compile Include="GameSettings.cs" />
+    <Compile Include="help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="help.Designer.cs">
+      <DependentUpon>help.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -81,14 +87,11 @@
     </Compile>
     <Compile Include="Vector.cs" />
     <Compile Include="Vehicle.cs" />
-    <Compile Include="Welcome.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Welcome.Designer.cs">
-      <DependentUpon>Welcome.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Driftr.resx">
       <DependentUpon>Driftr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="help.resx">
+      <DependentUpon>help.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -97,9 +100,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="start.resx">
       <DependentUpon>start.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Welcome.resx">
-      <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -115,24 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dashboard 5.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -167,6 +149,7 @@
     <None Include="Resources\dashboard 3 yellow.png" />
     <Content Include="Resources\car-yellow.png" />
     <Content Include="Resources\car-red.png" />
+    <None Include="Resources\driftr help scherm.png" />
     <Content Include="Resources\map_background.png" />
     <None Include="Resources\map_foreground - GOED BITCHES.png" />
     <None Include="Resources\index.jpg" />
